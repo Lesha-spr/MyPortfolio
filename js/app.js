@@ -9,7 +9,7 @@ var RouteHandler = Router.RouteHandler;
 // Components
 var Home = require('./components/Home.react');
 var About = require('./components/About.react');
-var Inbox = require('./components/Inbox.react')(Router);
+var Inbox = require('./components/Inbox.react');
 var Message = require('./components/Message.react');
 
 // App component
