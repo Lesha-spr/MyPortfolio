@@ -2,11 +2,14 @@ var React = require('react');
 
 module.exports = React.createClass({
     componentDidMount: function() {
-        console.log(this.props.params.id);
+
     },
     render: function() {
         return (
-            <h3>Message</h3>
+            <div>
+                <h3>{this.props.author}</h3>
+                <p>{this.props.text}</p>
+            </div>
         );
     }
 });
