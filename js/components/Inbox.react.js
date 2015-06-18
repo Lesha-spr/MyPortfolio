@@ -14,11 +14,11 @@ module.exports = React.createClass({
         }
     },
     componentDidMount: function() {
-        MessagesStore.addFetchListener(this._onChange);
+        MessagesStore.addFetchListener(this._onFetch);
         this._fetch();
     },
     componentWillUnmount: function() {
-        MessagesStore.removeFetchListener(this._onChange);
+        MessagesStore.removeFetchListener(this._onFetch);
     },
     render: function() {
         var messages = [];
@@ -36,7 +36,7 @@ module.exports = React.createClass({
             </div>
         )
     },
-    _onChange: function() {
+    _onFetch: function() {
         this.setState(MessagesStore.getAll());
     },
     _fetch: function() {
