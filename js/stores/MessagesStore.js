@@ -25,10 +25,8 @@ function create(author, date, text) {
         dataType: 'json',
         type: 'POST',
         data: message,
-        success: (data) => {
-            if (data) {
-                _messages[id] = message
-            }
+        success: function(data) {
+            if (data) _messages[id] = message;
         }
     });
 }
@@ -38,7 +36,7 @@ function fetch() {
         url: 'js/stores/messages.json',
         dataType: 'json',
         type: 'GET',
-        success: (data) => {
+        success: function(data) {
             if (data) _messages = data;
         }
     });

@@ -9,6 +9,7 @@ module.exports = React.createClass({
             <div>
                 <h3>{this.props.author}</h3>
                 <p>{this.props.text}</p>
+                <a href={this.props.id}>Fake link</a>
             </div>
         );
     }

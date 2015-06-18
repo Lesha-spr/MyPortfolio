@@ -20,7 +20,7 @@ module.exports = React.createClass({
     componentWillUnmount: function() {
         MessagesStore.removeFetchListener(this._onChange);
     },
-    render: function () {
+    render: function() {
         var messages = [];
 
         for (var i = 0; i < this.state.messages.length; i++) {
@@ -39,7 +39,7 @@ module.exports = React.createClass({
     _onChange: function() {
         this.setState(MessagesStore.getAll());
     },
-    _fetch: () => {
+    _fetch: function() {
         MessagesActions.fetch();
     }
 });
