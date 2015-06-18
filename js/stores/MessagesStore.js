@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var MessagesDispatcher = require('../dispatcher/MessagesDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var MessagesConstants = require('../constants/MessagesConstants');
 var assign = require('object-assign');
@@ -71,7 +71,7 @@ var MessagesStore = assign({}, EventEmitter.prototype, {
 });
 
 // Register callback to handle all updates
-MessagesDispatcher.register(function(action) {
+AppDispatcher.register(function(action) {
     switch(action.actionType) {
 
         case MessagesConstants.FETCH:

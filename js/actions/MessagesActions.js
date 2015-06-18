@@ -1,10 +1,10 @@
-var MessagesDispatcher = require('../dispatcher/MessagesDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 var MessagesConstants = require('../constants/MessagesConstants');
 
 var MessagesActions = {
 
     fetch: () => {
-        MessagesDispatcher.dispatch({
+        AppDispatcher.dispatch({
             actionType: MessagesConstants.FETCH
         });
     }
