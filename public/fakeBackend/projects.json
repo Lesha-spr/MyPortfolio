@@ -2,16 +2,17 @@
   "projects": [
     {
       "id": "id1",
-      "title": "author1",
+      "title": "Sportchek",
       "date": "1",
       "description": "text1",
-      "imgSrc": "public/i/sportchek.png"
+      "imgSrc": "public/i/Sportchek.png"
     },
     {
       "id": "id2",
-      "title": "author2",
+      "title": "Kyivstar",
       "date": "2",
-      "description": "text2"
+      "description": "text2",
+      "imgSrc": "public/i/Kyivstar.png"
     }
   ]
 }

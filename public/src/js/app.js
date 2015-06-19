@@ -10,7 +10,7 @@ var App = require('./components/App.react');
 var Home = require('./components/Home.react');
 var About = require('./components/About.react');
 var Projects = require('./components/Projects.react');
-var Project = require('./components/Project.react');
+var Project = require('./components/ProjectItem.react');
 
 // Declare our routes and their hierarchy
 var routes = (

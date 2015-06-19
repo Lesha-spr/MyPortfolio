@@ -5,7 +5,7 @@ var RouteHandler = Router.RouteHandler;
 var ProjectsStore = require('../stores/ProjectsStore');
 var ProjectsAction = require('../actions/ProjectsAction');
 
-var Project = require('../components/Project.react');
+var ProjectList = require('./ProjectList.react');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -21,24 +21,12 @@ module.exports = React.createClass({
         ProjectsStore.removeFetchListener(this._onFetch);
     },
     render: function() {
-        var projects = [];
-
-        for (var i = 0; i < this.state.projects.length; i++) {
-            projects.push(
-                <Project
-                    title={this.state.projects[i].title}
-                    description={this.state.projects[i].description}
-                    imgSrc={this.state.projects[i].imgSrc}
-                />
-            );
-        }
-
         return (
             <div>
                 <h2>Projects</h2>
                 <button onClick={this._fetch}>Refresh</button>
-                <ul className='projects'>{projects}</ul>
-                <RouteHandler />
+                <ProjectList projects={this.state.projects}/>
+                <RouteHandler/>
             </div>
         )
     },
