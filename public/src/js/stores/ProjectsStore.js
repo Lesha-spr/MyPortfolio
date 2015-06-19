@@ -1,54 +1,54 @@
 var $ = require('jquery');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
-var MessagesConstants = require('../constants/MessagesConstants');
+var AppConstants = require('../constants/AppConstants');
 var assign = require('object-assign');
 
 var FETCH_EVENT = 'fetch';
 
-var _messages = {};
+var _projects = {};
 
-function create(author, date, text) {
+function create(title, date, description) {
     // Hand waving here -- not showing how this interacts with XHR or persistent
     // server-side storage.
     // Using the current timestamp + random number in place of a real id.
     var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    var message = {
+    var project = {
         id: id,
-        author: author,
+        title: title,
         date: date,
-        text: text
+        description: description
     };
 
     $.ajax({
-        url: 'url/to/create/message',
+        url: 'url/to/create/project',
         dataType: 'json',
         type: 'POST',
-        data: message,
+        data: project,
         success: function(data) {
-            if (data) _messages[id] = message;
+            if (data) _projects[id] = project;
         }
     });
 }
 
 function fetch() {
     return $.ajax({
-        url: 'js/stores/messages.json',
+        url: 'public/fakeBackend/projects.json',
         dataType: 'json',
         type: 'GET',
-        success: function(data) {
-            if (data) _messages = data;
+        success: function(projects) {
+            if (projects) _projects = projects;
         }
     });
 }
 
-var MessagesStore = assign({}, EventEmitter.prototype, {
+var ProjectsStore = assign({}, EventEmitter.prototype, {
     /**
      * Get the entire collection of Messages.
      * @return {object}
      */
     getAll: function() {
-        return _messages;
+        return _projects;
     },
 
     emitFetch: function() {
@@ -74,9 +74,9 @@ var MessagesStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
 
-        case MessagesConstants.FETCH:
+        case AppConstants.FETCH:
             fetch().done(function() {
-                MessagesStore.emitFetch();
+                ProjectsStore.emitFetch();
             });
 
             break;
@@ -86,4 +86,4 @@ AppDispatcher.register(function(action) {
     }
 });
 
-module.exports = MessagesStore;
+module.exports = ProjectsStore;
