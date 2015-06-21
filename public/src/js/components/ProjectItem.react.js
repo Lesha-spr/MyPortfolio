@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 module.exports = React.createClass({
     componentDidMount: function() {
@@ -9,8 +10,9 @@ module.exports = React.createClass({
             <li className='projects__item'>
                 <h3>{this.props.title}</h3>
                 <p>{this.props.description}</p>
-                <img src={this.props.imgSrc}/>
-                <a href={this.props.id}>Fake link</a>
+                <Link to='project' className='projects__item__link' params={{id: this.props.id}}>
+                    <img className='projects__item__image' src={this.props.imgSrc}/>
+                </Link>
             </li>
         );
     }

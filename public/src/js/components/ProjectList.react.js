@@ -5,15 +5,16 @@ module.exports = React.createClass({
     render: function() {
         var projects = [];
 
-        for (var i = 0; i < this.props.projects.length; i++) {
+        this.props.projects.map(project => {
             projects.push(
                 <ProjectItem
-                    title={this.props.projects[i].title}
-                    description={this.props.projects[i].description}
-                    imgSrc={this.props.projects[i].imgSrc}
-                    />
+                    id={project.id}
+                    title={project.title}
+                    description={project.description}
+                    imgSrc={project.imgSrc}
+                />
             );
-        }
+        });
 
         return (
             <ul className='projects'>{projects}</ul>
