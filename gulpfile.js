@@ -36,10 +36,13 @@ gulp.task('less', function() {
         .pipe(gulp.dest('./public/build/styles'));
 });
 
-// TODO: setup this mess
 gulp.task('watch', function() {
-    watch('./public/src/**/*', function() {
-        gulp.run(['compress', 'less']);
+    watch('./public/src/js/**/*', function() {
+        gulp.run(['compress']);
+    });
+
+    watch('./public/src/styles/**/*', function() {
+        gulp.run(['less']);
     });
 });
 
