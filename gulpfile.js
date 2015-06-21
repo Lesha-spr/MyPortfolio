@@ -7,6 +7,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var uglify = require('gulp-uglify');
+var inject = require('gulp-inject');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 
@@ -30,10 +31,22 @@ gulp.task('compress', function() {
 });
 
 gulp.task('less', function() {
-    return gulp.src('./public/src/styles/styles.less')
+    return gulp.src('public/src/styles/styles.less')
+    /**
+     * Dynamically injects @import statements into the main app.less file, allowing
+     * .less files to be placed around the app structure with the component
+     * or page they apply to.
+     */
+        .pipe(inject(gulp.src(['./components/**/*.less'], {read: false, cwd: 'public/src/styles/'}), {
+            starttag: '/* inject:imports */',
+            endtag: '/* endinject */',
+            transform: function (filepath) {
+                return '@import ".' + filepath + '";';
+            }
+        }))
         .pipe(less())
         .pipe(minifyCSS())
-        .pipe(gulp.dest('./public/build/styles'));
+        .pipe(gulp.dest('public/build/styles'));
 });
 
 gulp.task('watch', function() {
