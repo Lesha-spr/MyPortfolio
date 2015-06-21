@@ -5,14 +5,14 @@
       "title": "Sportchek",
       "date": "1",
       "description": "text1",
-      "imgSrc": "public/i/Sportchek.png"
+      "imgSrc": "/src/i/Sportchek.png"
     },
     {
       "id": "id2",
       "title": "Kyivstar",
       "date": "2",
       "description": "text2",
-      "imgSrc": "public/i/Kyivstar.png"
+      "imgSrc": "/src/i/Kyivstar.png"
     }
   ]
 }

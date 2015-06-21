@@ -33,7 +33,7 @@ function create(title, date, description) {
 
 function fetch() {
     return $.ajax({
-        url: 'public/fakeBackend/projects.json',
+        url: 'fakeBackend/projects.json',
         dataType: 'json',
         type: 'GET',
         success: function(projects) {
