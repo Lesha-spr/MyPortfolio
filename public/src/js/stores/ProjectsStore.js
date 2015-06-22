@@ -8,29 +8,6 @@ var FETCH_EVENT = 'fetch';
 
 var _projects = {};
 
-function create(title, date, description) {
-    // Hand waving here -- not showing how this interacts with XHR or persistent
-    // server-side storage.
-    // Using the current timestamp + random number in place of a real id.
-    var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-    var project = {
-        id: id,
-        title: title,
-        date: date,
-        description: description
-    };
-
-    $.ajax({
-        url: 'url/to/create/project',
-        dataType: 'json',
-        type: 'POST',
-        data: project,
-        success: function(data) {
-            if (data) _projects[id] = project;
-        }
-    });
-}
-
 function fetch() {
     return $.ajax({
         url: 'fakeBackend/projects.json',
