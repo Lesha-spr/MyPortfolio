@@ -8,7 +8,7 @@ module.exports = React.createClass({
     render: function() {
         return (
             <main className='main'>
-                <h1><a href='#'>Oleksii An | Frontend developer</a></h1>
+                <h1><a href='/'>Oleksii An | Frontend developer (not a hipster)</a></h1>
                 <Nav/>
                 <RouteHandler/>
             </main>

@@ -32,7 +32,7 @@ module.exports = React.createClass({
         );
     },
     _onGet: function() {
-        this.setState(NavStore.getNav());
+        this.setState(NavStore.getAll());
     },
     _get: function() {
         NavAction.getNav();

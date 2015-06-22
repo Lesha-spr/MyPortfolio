@@ -5,26 +5,29 @@ var assign = require('object-assign');
 
 var GET_EVENT = 'get';
 
-var _nav = {
-    nav: [
+var _contacts = {
+    contacts: [
         {
-            title: 'Projects',
-            href: 'projects'
+            title: 'Github',
+            href: 'https://github.com/Lesha-spr',
+            modifier: 'contacts__item__link_github'
         },
         {
-            title: 'About',
-            href: 'about'
+            title: 'Facebook',
+            href: 'https://www.facebook.com/profile.php?id=100008122232589',
+            modifier: 'contacts__item__link_facebook'
         },
         {
-            title: 'Contacts',
-            href: 'contacts'
+            title: 'Stackoverflow',
+            href: 'http://stackoverflow.com/users/4713775/%D0%9B%D1%91%D1%88%D0%B0-%D0%90%D0%BD',
+            modifier: 'contacts__item__link_stackoverflow'
         }
     ]
 };
 
-var NavStore = assign({}, EventEmitter.prototype, {
+var ContactsStore = assign({}, EventEmitter.prototype, {
     getAll: () => {
-        return _nav;
+        return _contacts;
     },
 
     emitGet: function() {
@@ -50,8 +53,8 @@ var NavStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
 
-        case AppConstants.GET_NAV:
-            NavStore.emitGet();
+        case AppConstants.GET_CONTACTS:
+            ContactsStore.emitGet();
 
             break;
 
@@ -60,4 +63,4 @@ AppDispatcher.register(function(action) {
     }
 });
 
-module.exports = NavStore;
+module.exports = ContactsStore;
