@@ -33,7 +33,6 @@ module.exports = React.createClass({
         );
     },
     _onGet: function() {
-        console.log(ContactsStore.getAll());
         this.setState(ContactsStore.getAll());
     },
     _get: function() {
