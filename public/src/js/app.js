@@ -7,15 +7,17 @@ var App = require('./components/App.react');
 var Home = require('./components/Home.react');
 var About = require('./components/About.react');
 var Projects = require('./components/Projects.react');
+var Contacts = require('./components/Contacts.react');
 var ProjectDetails = require('./components/ProjectDetails.react');
 
 // Declare our routes and their hierarchy
 var routes = (
     <Route handler={App}>
-        <Route path="/" handler={Home}/>
-        <Route path="about" handler={About}/>
-        <Route path="projects" handler={Projects}/>
-        <Route name="project" path="projects/:id" handler={ProjectDetails}/>
+        <Route path='/' handler={Home}/>
+        <Route name='about' path='about' handler={About}/>
+        <Route name='projects' path='projects' handler={Projects}/>
+        <Route name='contacts' path='contacts' handler={Contacts}/>
+        <Route name='project' path='projects/:id' handler={ProjectDetails}/>
     </Route>
 );
 

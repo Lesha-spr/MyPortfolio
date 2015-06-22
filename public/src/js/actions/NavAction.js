@@ -1,14 +1,14 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 
-var ProjectsAction = {
+var NavAction = {
 
-    fetch: () => {
+    getNav: () => {
         AppDispatcher.dispatch({
-            actionType: AppConstants.FETCH_PROJECTS
+            actionType: AppConstants.GET_NAV
         });
     }
 
 };
 
-module.exports = ProjectsAction;
+module.exports = NavAction;

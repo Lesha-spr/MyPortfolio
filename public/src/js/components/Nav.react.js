@@ -1,11 +1,40 @@
 var React = require('react');
+var NavItem = require('./NavItem.react');
+var NavStore = require('./../stores/NavStore');
+var NavAction = require('./../actions/NavAction');
 
 module.exports = React.createClass({
+    getInitialState: () => {
+        return {
+            nav: []
+        }
+    },
+    componentDidMount: function() {
+        NavStore.addGetListener(this._onGet);
+        this._get();
+    },
+    componentWillUnmount: function() {
+        NavStore.removeGetListener(this._onGet);
+    },
     render: function() {
+        var navItems = [];
+
+        this.state.nav.map(navItem => {
+            navItems.push(
+                <NavItem title={navItem.title} href={navItem.href} />
+            )
+        });
+
         return (
-            <div>
-                Navigation
-            </div>
+            <nav className='nav'>
+                {navItems}
+            </nav>
         );
+    },
+    _onGet: function() {
+        this.setState(NavStore.getNav());
+    },
+    _get: function() {
+        NavAction.getNav();
     }
 });

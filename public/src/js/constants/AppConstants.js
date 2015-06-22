@@ -1,6 +1,6 @@
 var keyMirror = require('keymirror');
 
 module.exports = keyMirror({
-    FETCH: null,
-    MESSAGE_CREATE: null
+    FETCH_PROJECTS: null,
+    GET_NAV: null
 });

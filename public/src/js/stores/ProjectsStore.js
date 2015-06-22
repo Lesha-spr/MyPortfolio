@@ -74,7 +74,7 @@ var ProjectsStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
 
-        case AppConstants.FETCH:
+        case AppConstants.FETCH_PROJECTS:
             fetch().done(function() {
                 ProjectsStore.emitFetch();
             });
