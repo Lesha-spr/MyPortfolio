@@ -2,7 +2,7 @@ var $ = require('jquery');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
-var assign = require('object-assign');
+var _ = require('underscore');
 
 var FETCH_EVENT = 'fetch';
 
@@ -19,7 +19,7 @@ function fetch() {
     });
 }
 
-var ProjectsStore = assign({}, EventEmitter.prototype, {
+var ProjectsStore = _.extend({}, EventEmitter.prototype, {
     /**
      * Get the entire collection of Messages.
      * @return {object}

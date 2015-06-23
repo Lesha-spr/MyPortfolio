@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
-var assign = require('object-assign');
+var _ = require('underscore');
 
 var GET_EVENT = 'get';
 
@@ -35,7 +35,7 @@ var _contacts = {
     ]
 };
 
-var ContactsStore = assign({}, EventEmitter.prototype, {
+var ContactsStore = _.extend({}, EventEmitter.prototype, {
     getAll: () => {
         return _contacts;
     },
