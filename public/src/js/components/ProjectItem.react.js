@@ -8,11 +8,13 @@ module.exports = React.createClass({
     render: function() {
         return (
             <li className='projects__item'>
-                <h3>{this.props.title}</h3>
-                <p>{this.props.description}</p>
-                <Link to='project' className='projects__item__link' params={{id: this.props.id}}>
-                    <img className='projects__item__image' src={this.props.imgSrc}/>
-                </Link>
+                <div className='projects__item__inner'>
+                    <h3>{this.props.title}</h3>
+                    <p>{this.props.description}</p>
+                    <Link to='project' className='projects__item__link' params={{id: this.props.id}}>
+                        <img className='projects__item__image' src={this.props.imgSrc} alt={this.props.title}/>
+                    </Link>
+                </div>
             </li>
         );
     }

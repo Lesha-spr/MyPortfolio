@@ -8,6 +8,11 @@ var GET_EVENT = 'get';
 var _contacts = {
     contacts: [
         {
+            title: 'Skype',
+            href: 'skype:alexeii68?chat',
+            modifier: 'contacts__item__link_skype'
+        },
+        {
             title: 'Github',
             href: 'https://github.com/Lesha-spr',
             modifier: 'contacts__item__link_github'

@@ -7,12 +7,25 @@ var Nav = require('./Nav.react');
 
 module.exports = React.createClass({
     render: function() {
+
         return (
-            <main className='main'>
-                <h1><Link to='home'>Oleksii An | Frontend developer (not a hipster)</Link></h1>
-                <Nav/>
-                <RouteHandler/>
-            </main>
+            <div className='layout'>
+                <header className='header'>
+                    <h1 className='header__title'>
+                        <Link
+                            to='home'
+                            className='header__title__link'
+                            activeClassName='header__title__link_state_active'
+                        >
+                            Oleksii An | Frontend developer
+                        </Link>
+                    </h1>
+                    <Nav/>
+                </header>
+                <main className='main'>
+                    <RouteHandler/>
+                </main>
+            </div>
         )
     }
 });
