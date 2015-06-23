@@ -8,6 +8,11 @@ var GET_EVENT = 'get';
 var _contacts = {
     contacts: [
         {
+            title: 'Email',
+            href: 'mailto:voodoo.spr@gmail.com',
+            modifier: 'contacts__item__link_gmail'
+        },
+        {
             title: 'Skype',
             href: 'skype:alexeii68?chat',
             modifier: 'contacts__item__link_skype'

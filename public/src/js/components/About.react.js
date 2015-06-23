@@ -3,7 +3,10 @@ var React = require('react');
 module.exports = React.createClass({
     render: function() {
         return (
-            <h2>About</h2>
+            <div className='about'>
+                <h2>About</h2>
+                <p>This is me!</p>
+            </div>
         );
     }
 });
