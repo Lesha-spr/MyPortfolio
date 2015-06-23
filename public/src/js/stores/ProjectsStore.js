@@ -21,10 +21,10 @@ function fetch() {
 
 var ProjectsStore = _.extend({}, EventEmitter.prototype, {
     /**
-     * Get the entire collection of Messages.
+     * Get the entire collection of Projects.
      * @return {object}
      */
-    getAll: function() {
+    getAll: () => {
         return _projects;
     },
 
