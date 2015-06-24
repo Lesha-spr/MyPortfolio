@@ -12,7 +12,7 @@ var ProjectDetails = require('./components/ProjectDetails.react');
 
 // Declare our routes and their hierarchy
 var routes = (
-    <Route handler={App}>
+    <Route ignoreScrollBehavior handler={App}>
         <Route name='home' path='/' handler={Home}/>
         <Route name='about' path='about' handler={About}/>
         <Route name='projects' path='projects' handler={Projects}/>
