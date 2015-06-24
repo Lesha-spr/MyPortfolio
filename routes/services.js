@@ -22,6 +22,8 @@ router.use(function(err, req, res, next) {
     if (err instanceof ErrorService) {
         res.status(err.data.status).json(err.data);
     }
+
+    next();
 });
 
 module.exports = router;

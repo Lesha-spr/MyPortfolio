@@ -4,7 +4,7 @@ var services = require('./services');
 
 router.use('/services', services);
 
-/* GET home page. */
+/* GET markup */
 router.get('*', function(req, res, next) {
   res.render('index', { title: 'MyPortfolio' });
 });
