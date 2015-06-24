@@ -1,5 +1,8 @@
+@project_item_padding: 10px;
+
 .projects {
   .list();
+  margin: 0 -@project_item_padding;
   .clearfix();
 }
 
@@ -9,7 +12,7 @@
 }
 
 .projects__item__inner {
-  padding: 10px;
+  padding: @project_item_padding;
 }
 
 .projects__item__image {
