@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
         this.state.nav.map(navItem => {
             navItems.push(
-                <NavItem title={navItem.title} href={navItem.href} />
+                <NavItem key={navItem._id} title={navItem.title} href={navItem.href} />
             )
         });
 

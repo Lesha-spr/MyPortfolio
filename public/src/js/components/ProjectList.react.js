@@ -8,6 +8,7 @@ module.exports = React.createClass({
         this.props.projects.map(project => {
             projects.push(
                 <ProjectItem
+                    key={project._id}
                     id={project._id}
                     title={project.title}
                     description={project.description}

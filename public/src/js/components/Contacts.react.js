@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
         this.state.contacts.map(contact => {
             contacts.push(
-                <ContactsItem href={contact.href} title={contact.title} modifier={contact.modifier} />
+                <ContactsItem key={contact._id} href={contact.href} title={contact.title} modifier={contact.modifier} />
             )
         });
 

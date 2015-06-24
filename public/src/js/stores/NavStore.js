@@ -8,14 +8,17 @@ var GET_EVENT = 'get';
 var _nav = {
     nav: [
         {
+            _id: '1',
             title: 'About',
             href: 'about'
         },
         {
+            _id: '2',
             title: 'Projects',
             href: 'projects'
         },
         {
+            _id: '3',
             title: 'Contacts',
             href: 'contacts'
         }
