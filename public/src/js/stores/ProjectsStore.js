@@ -10,7 +10,7 @@ var _projects = {};
 
 function fetch() {
     return $.ajax({
-        url: 'fakeBackend/projects.json',
+        url: '/services/projects',
         dataType: 'json',
         type: 'GET',
         success: function(projects) {

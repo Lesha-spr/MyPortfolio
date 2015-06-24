@@ -1,6 +1,7 @@
 var app = require('./app');
+var config = require('./config/config.json');
 
-var server = app.listen(3000, function () {
+var server = app.listen(config.port, function () {
 
     var host = server.address().address;
     var port = server.address().port;
