@@ -13,27 +13,36 @@ module.exports = React.createClass({
             projects: []
         }
     },
+
     componentDidMount: function() {
         ProjectsStore.addFetchListener(this._onFetch);
-        this._fetch();
+        this._fetch(false);
     },
+
     componentWillUnmount: function() {
         ProjectsStore.removeFetchListener(this._onFetch);
     },
+
     render: function() {
         return (
             <div>
                 <h2>Projects</h2>
-                <button onClick={this._fetch}>Refresh</button>
+                <button onClick={this._fetch.bind(this, true)}>Refresh</button>
                 <ProjectList projects={this.state.projects}/>
                 <RouteHandler/>
             </div>
         )
     },
+
     _onFetch: function() {
         this.setState(ProjectsStore.getAll());
     },
-    _fetch: function() {
-        ProjectsAction.fetch();
+
+    /**
+     * @param force {Boolean} force fetch projects
+     * @private
+     */
+    _fetch: force => {
+        ProjectsAction.fetch(force);
     }
 });
