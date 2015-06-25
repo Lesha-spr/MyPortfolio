@@ -8,17 +8,21 @@ var FETCH_EVENT = 'fetch';
 var GET_ONE_EVENT = 'getone';
 
 var _projects = {
-    projects: []
+    projects: [],
+    isFetched: false
 };
 
 function fetch(force) {
-    if (force || !_projects.projects.length) {
+    if (force || !_projects.isFetched) {
         return $.ajax({
             url: '/services/projects',
             dataType: 'json',
             type: 'GET',
             success: function(projects) {
-                if (projects) _projects = projects;
+                if (projects) {
+                    _projects = projects;
+                    _projects.isFetched = true;
+                }
             }
         });
     }
