@@ -9,7 +9,7 @@ var ProjectList = React.createClass({
             projects.push(
                 <ProjectItem
                     key={project._id}
-                    id={project._id}
+                    name={project.name}
                     title={project.title}
                     description={project.description}
                     imgSrc={project.imgSrc}

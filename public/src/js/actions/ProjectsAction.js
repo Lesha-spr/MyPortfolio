@@ -3,6 +3,9 @@ var AppConstants = require('../constants/AppConstants');
 
 var ProjectsAction = {
 
+    /**
+     * @param force {Boolean}
+     */
     fetch: (force) => {
         AppDispatcher.dispatch({
             actionType: AppConstants.FETCH_PROJECTS,
@@ -10,10 +13,13 @@ var ProjectsAction = {
         });
     },
 
-    getOne: (id) => {
+    /**
+     * @param name {String}
+     */
+    getOne: (name) => {
         AppDispatcher.dispatch({
             actionType: AppConstants.GET_ONE_PROJECT,
-            id: id
+            name: name
         });
     }
 

@@ -11,7 +11,7 @@ var ProjectItem = React.createClass({
                 <div className='projects__item__inner'>
                     <h3>{this.props.title}</h3>
                     <p>{this.props.description}</p>
-                    <Link to='project' className='projects__item__link' params={{id: this.props.id}}>
+                    <Link to='project' className='projects__item__link' params={{name: this.props.name}}>
                         <img className='projects__item__image' src={this.props.imgSrc} alt={this.props.title}/>
                     </Link>
                 </div>

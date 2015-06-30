@@ -17,23 +17,27 @@ var createProjects = function createProjects(callback) {
             var project = new Project({
                 title: 'First project',
                 description: 'Lorem ipsum dolor sit amet',
-                imgSrc: '/src/i/Sportchek.png'
+                imgSrc: '/src/i/Sportchek.png',
+                url: 'https://www.sportchek.ca/',
+                name: 'sportchek'
             });
 
             project.save(function(err, project, affected) {
                 callback(err, project);
-            })
+            });
         },
         function(callback) {
             var project = new Project({
                 title: 'Second project',
                 description: 'Lorem ipsum dolor sit amet',
-                imgSrc: '/src/i/Kyivstar.png'
+                imgSrc: '/src/i/Kyivstar.png',
+                url: 'http://kyivstar.ua',
+                name: 'kyivstar'
             });
 
             project.save(function(err, project, affected) {
                 callback(err, project);
-            })
+            });
         }
     ], callback);
 };

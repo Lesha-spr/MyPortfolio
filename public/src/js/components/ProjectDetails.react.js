@@ -6,7 +6,10 @@ var ProjectDetails = React.createClass({
     getInitialState: function() {
         return {
             title: '',
-            description: ''
+            description: '',
+            imgSrc: '',
+            url: '',
+            name: ''
         }
     },
     componentDidMount: function() {
@@ -21,15 +24,17 @@ var ProjectDetails = React.createClass({
             <div className='project'>
                 <h2>{this.state.title}</h2>
                 <p>{this.state.description}</p>
-                <img className='project__image' src={this.state.imgSrc} alt={this.state.title}/>
+                <a href={this.state.url}>
+                    <img className='project__image' src={this.state.imgSrc} alt={this.state.title}/>
+                </a>
             </div>
         );
     },
     _getOne: function() {
-        ProjectsAction.getOne(this.props.params.id);
+        ProjectsAction.getOne(this.props.params.name);
     },
     _onGetOne: function() {
-        this.setState(ProjectsStore.getOne(this.props.params.id));
+        this.setState(ProjectsStore.getOne(this.props.params.name));
     }
 });
 

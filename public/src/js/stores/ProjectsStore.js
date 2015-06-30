@@ -28,12 +28,12 @@ function fetch(force) {
     }
 }
 
-function getOne(id) {
-    var cachedProject = _.findWhere(_projects.projects, {_id: id});
+function getOne(name) {
+    var cachedProject = _.findWhere(_projects.projects, {name: name});
 
     if (!cachedProject) {
         return $.ajax({
-            url: '/services/projects/' + id,
+            url: '/services/projects/' + name,
             dataType: 'json',
             type: 'GET',
             success: function(project) {
@@ -48,14 +48,18 @@ function getOne(id) {
 var ProjectsStore = _.extend({}, EventEmitter.prototype, {
     /**
      * Get the entire collection of Projects.
-     * @return {object}
+     * @return {Object}
      */
     getAll: () => {
         return _projects;
     },
 
-    getOne: (id) => {
-        return _.findWhere(_projects.projects, {_id: id});
+    /**
+     * @param name {String}
+     * @return {Object}
+     */
+    getOne: (name) => {
+        return _.findWhere(_projects.projects, {name: name});
     },
 
     emitFetch: function() {
@@ -66,23 +70,29 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         this.emit(GET_ONE_EVENT);
     },
     /**
-     * @param {function} callback
+     * @param callback {Function}
      */
     addFetchListener: function(callback) {
         this.on(FETCH_EVENT, callback);
     },
 
     /**
-     * @param {function} callback
+     * @param callback {Function}
      */
     removeFetchListener: function(callback) {
         this.removeListener(FETCH_EVENT, callback);
     },
 
+    /**
+     * @param callback {Function}
+     */
     addGetOneListener: function(callback) {
         this.on(GET_ONE_EVENT, callback);
     },
 
+    /**
+     * @param callback {Function}
+     */
     removeGetOneListener: function(callback) {
         this.removeListener(GET_ONE_EVENT, callback);
     }
@@ -100,7 +110,7 @@ AppDispatcher.register(function(action) {
             break;
 
         case AppConstants.GET_ONE_PROJECT:
-            $.when(getOne(action.id)).done(function() {
+            $.when(getOne(action.name)).done(function() {
                 ProjectsStore.emitGetOne();
             });
 
