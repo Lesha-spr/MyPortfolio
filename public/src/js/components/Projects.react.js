@@ -7,7 +7,7 @@ var ProjectsAction = require('../actions/ProjectsAction');
 
 var ProjectList = require('./ProjectList.react');
 
-module.exports = React.createClass({
+var Projects = React.createClass({
     getInitialState: function() {
         return {
             projects: []
@@ -46,3 +46,5 @@ module.exports = React.createClass({
         ProjectsAction.fetch(force);
     }
 });
+
+module.exports = Projects;

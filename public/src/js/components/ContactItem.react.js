@@ -2,7 +2,7 @@ var React = require('react');
 
 var CLASS_NAME = 'contacts__item__link ';
 
-module.exports = React.createClass({
+var ContactsItem = React.createClass({
     render: function() {
         var className = this.props.modifier ? CLASS_NAME + this.props.modifier : CLASS_NAME;
 
@@ -13,3 +13,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+module.exports = ContactsItem;

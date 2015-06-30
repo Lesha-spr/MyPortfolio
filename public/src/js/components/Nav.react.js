@@ -3,7 +3,7 @@ var NavItem = require('./NavItem.react');
 var NavStore = require('./../stores/NavStore');
 var NavAction = require('./../actions/NavAction');
 
-module.exports = React.createClass({
+var Nav = React.createClass({
     getInitialState: () => {
         return {
             nav: []
@@ -38,3 +38,5 @@ module.exports = React.createClass({
         NavAction.getNav();
     }
 });
+
+module.exports = Nav;

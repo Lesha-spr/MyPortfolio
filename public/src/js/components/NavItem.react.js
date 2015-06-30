@@ -3,7 +3,7 @@ var Link = require('react-router').Link;
 
 var ACTIVE_CLASS = 'nav__item__link_state_active';
 
-module.exports = React.createClass({
+var NavItem = React.createClass({
     render: function() {
         return (
             <div className='nav__item'>
@@ -12,3 +12,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+module.exports = NavItem;

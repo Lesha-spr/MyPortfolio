@@ -1,9 +1,9 @@
 var React = require('react');
-var ContactsItem = require('./ContactsItem.react');
+var ContactItem = require('./ContactItem.react');
 var ContactsStore = require('./../stores/ContactsStore');
 var ContactsAction = require('./../actions/ContactsAction');
 
-module.exports = React.createClass({
+var Contacts = React.createClass({
     getInitialState: () => {
         return {
             contacts: []
@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
         this.state.contacts.map(contact => {
             contacts.push(
-                <ContactsItem key={contact._id} href={contact.href} title={contact.title} modifier={contact.modifier} />
+                <ContactItem key={contact._id} href={contact.href} title={contact.title} modifier={contact.modifier} />
             )
         });
 
@@ -39,3 +39,5 @@ module.exports = React.createClass({
         ContactsAction.getAll();
     }
 });
+
+module.exports = Contacts;

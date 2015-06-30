@@ -1,9 +1,11 @@
 var React = require('react');
 
-module.exports = React.createClass({
+var Home = React.createClass({
     render: function() {
         return (
             <h2>Homepage</h2>
         );
     }
 });
+
+module.exports = Home;

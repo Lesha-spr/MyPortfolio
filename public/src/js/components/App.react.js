@@ -5,7 +5,7 @@ var RouteHandler = Router.RouteHandler;
 
 var Nav = require('./Nav.react');
 
-module.exports = React.createClass({
+var App = React.createClass({
     render: function() {
 
         return (
@@ -29,3 +29,5 @@ module.exports = React.createClass({
         )
     }
 });
+
+module.exports = App;

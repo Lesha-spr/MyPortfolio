@@ -1,6 +1,6 @@
 var React = require('react');
 
-module.exports = React.createClass({
+var About = React.createClass({
     render: function() {
         return (
             <div className='about'>
@@ -10,3 +10,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+module.exports = About;

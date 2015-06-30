@@ -1,7 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 
-module.exports = React.createClass({
+var ProjectItem = React.createClass({
     componentDidMount: function() {
 
     },
@@ -19,3 +19,5 @@ module.exports = React.createClass({
         );
     }
 });
+
+module.exports = ProjectItem;

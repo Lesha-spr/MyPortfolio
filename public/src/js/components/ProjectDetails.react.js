@@ -2,7 +2,7 @@ var React = require('react');
 var ProjectsStore = require('../stores/ProjectsStore');
 var ProjectsAction = require('../actions/ProjectsAction');
 
-module.exports = React.createClass({
+var ProjectDetails = React.createClass({
     getInitialState: function() {
         return {
             title: '',
@@ -32,3 +32,5 @@ module.exports = React.createClass({
         this.setState(ProjectsStore.getOne(this.props.params.id));
     }
 });
+
+module.exports = ProjectDetails;

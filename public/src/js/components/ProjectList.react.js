@@ -1,7 +1,7 @@
 var React = require('react');
 var ProjectItem = require('./ProjectItem.react');
 
-module.exports = React.createClass({
+var ProjectList = React.createClass({
     render: function() {
         var projects = [];
 
@@ -22,3 +22,5 @@ module.exports = React.createClass({
         )
     }
 });
+
+module.exports = ProjectList;
