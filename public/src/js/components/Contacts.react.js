@@ -19,9 +19,9 @@ var Contacts = React.createClass({
     render: function() {
         var contacts = [];
 
-        this.state.contacts.map(contact => {
+        this.state.contacts.forEach((contact, index) => {
             contacts.push(
-                <ContactItem key={contact._id} href={contact.href} title={contact.title} modifier={contact.modifier} />
+                <ContactItem key={index} href={contact.href} title={contact.title} modifier={contact.modifier} />
             )
         });
 

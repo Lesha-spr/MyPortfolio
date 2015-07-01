@@ -19,9 +19,9 @@ var Nav = React.createClass({
     render: function() {
         var navItems = [];
 
-        this.state.nav.map(navItem => {
+        this.state.nav.forEach((navItem, index) => {
             navItems.push(
-                <NavItem key={navItem._id} title={navItem.title} href={navItem.href} />
+                <NavItem key={index} title={navItem.title} href={navItem.href} />
             )
         });
 

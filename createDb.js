@@ -38,6 +38,19 @@ var createProjects = function createProjects(callback) {
             project.save(function(err, project, affected) {
                 callback(err, project);
             });
+        },
+        function(callback) {
+            var project = new Project({
+                title: 'Third project',
+                description: 'Lorem ipsum dolor sit amet',
+                imgSrc: '/src/i/Shopart.png',
+                url: 'https://shopart.ua',
+                name: 'shopart'
+            });
+
+            project.save(function(err, project, affected) {
+                callback(err, project);
+            });
         }
     ], callback);
 };
