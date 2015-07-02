@@ -9,6 +9,7 @@ var ProjectsAction = {
     fetch: (force) => {
         AppDispatcher.dispatch({
             actionType: AppConstants.FETCH_PROJECTS,
+            asyncState: AppConstants.ASYNC_START,
             force: force
         });
     },
@@ -19,8 +20,15 @@ var ProjectsAction = {
     getOne: (name) => {
         AppDispatcher.dispatch({
             actionType: AppConstants.GET_ONE_PROJECT,
+            asyncState: AppConstants.ASYNC_START,
             name: name
         });
+    },
+
+    complete: () => {
+        AppDispatcher.dispatch({
+            asyncState: AppConstants.ASYNC_COMPLETE
+        })
     }
 
 };

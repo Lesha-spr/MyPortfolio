@@ -3,9 +3,19 @@ var Router = require('react-router');
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
+var AppStore = require('./../stores/AppStore');
+
 var Nav = require('./Nav.react');
 
 var App = React.createClass({
+    componentDidMount: function() {
+        AppStore.addLoadingListener(this._onLoading);
+    },
+
+    componentWillUnmount: function() {
+        AppStore.removeLoadingListener(this._onLoading);
+    },
+
     render: function() {
 
         return (
@@ -27,6 +37,10 @@ var App = React.createClass({
                 </main>
             </div>
         )
+    },
+
+    _onLoading: function _onLoading() {
+        //console.log(AppStore.getPendingComponents());
     }
 });
 

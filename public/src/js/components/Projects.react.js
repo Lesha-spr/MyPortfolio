@@ -35,6 +35,8 @@ var Projects = React.createClass({
     },
 
     _onFetch: function() {
+        // TODO: handle complete only if async
+        //ProjectsAction.complete();
         this.setState(ProjectsStore.getAll());
     },
 
