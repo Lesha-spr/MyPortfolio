@@ -12,7 +12,7 @@ var _projects = {
     isFetched: false
 };
 
-function fetch() {
+function fetchAll() {
 
     return $.ajax({
         url: '/services/projects',
@@ -27,7 +27,7 @@ function fetch() {
     });
 }
 
-function getOne(name) {
+function fetchOne(name) {
 
     return $.ajax({
         url: '/services/projects/' + name,
@@ -82,7 +82,7 @@ AppDispatcher.register(function(action) {
 
         case AppConstants.FETCH_PROJECTS:
             if (action.force || !_projects.isFetched) {
-                $.when(fetch()).done(function() {
+                $.when(fetchAll()).done(function() {
                     ProjectsStore.emitFetch();
                 });
             } else {
@@ -95,7 +95,7 @@ AppDispatcher.register(function(action) {
             var cachedProject = _.findWhere(_projects.projects, {name: action.name});
 
             if (!cachedProject) {
-                $.when(getOne(action.name)).done(function() {
+                $.when(fetchOne(action.name)).done(function() {
                     ProjectsStore.emitFetch();
                 });
             } else {
