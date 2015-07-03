@@ -5,7 +5,6 @@ var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
 
 var FETCH_EVENT = 'fetch';
-var GET_ONE_EVENT = 'getone';
 
 var _projects = {
     projects: [],
