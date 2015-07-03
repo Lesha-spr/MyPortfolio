@@ -13,11 +13,11 @@ var ProjectDetails = React.createClass({
         }
     },
     componentDidMount: function() {
-        ProjectsStore.addGetOneListener(this._onGetOne);
+        ProjectsStore.addFetchListener(this._onGetOne);
         this._getOne();
     },
     componentWillUnmount: function() {
-        ProjectsStore.removeGetOneListener(this._onGetOne);
+        ProjectsStore.removeFetchListener(this._onGetOne);
     },
     render: function() {
         return (
