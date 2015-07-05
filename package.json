@@ -16,9 +16,8 @@
     "mongoose": "^4.0.6",
     "morgan": "~1.5.3",
     "serve-favicon": "~2.2.1",
-    "underscore": "^1.8.3"
-  },
-  "devDependencies": {
+    "underscore": "^1.8.3",
+
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
     "events": "^1.0.2",
@@ -38,5 +37,6 @@
     "react-router": "^0.13.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  }
+  },
+  "devDependencies": {}
 }

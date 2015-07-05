@@ -1,7 +1,7 @@
 {
   "port": 3000,
   "mongoose": {
-    "uri": "mongodb://localhost/portfolio",
+    "uri": "mongodb://Lesha-spr:alewka456@ds061278.mongolab.com:61278/heroku_2lm04t83",
     "options": {}
   }
 }

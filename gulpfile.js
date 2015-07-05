@@ -59,4 +59,6 @@ gulp.task('watch', function() {
     });
 });
 
+
+gulp.task('build', ['compress', 'less']);
 gulp.task('default', ['compress', 'less', 'watch']);
