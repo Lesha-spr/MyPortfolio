@@ -29,8 +29,9 @@
 
 .projects__item__image {
   .image();
+  transition: opacity, .25s, ease;
 
   .projects_state_loading & {
-    visibility: hidden;
+    opacity: 0;
   }
 }
