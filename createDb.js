@@ -17,7 +17,7 @@ var createProjects = function createProjects(callback) {
             var project = new Project({
                 title: 'First project',
                 description: 'Lorem ipsum dolor sit amet',
-                imgSrc: '/src/i/Sportchek.png',
+                imgSrc: '/build/i/Sportchek.png',
                 url: 'https://www.sportchek.ca/',
                 name: 'sportchek'
             });
@@ -30,7 +30,7 @@ var createProjects = function createProjects(callback) {
             var project = new Project({
                 title: 'Second project',
                 description: 'Lorem ipsum dolor sit amet',
-                imgSrc: '/src/i/Kyivstar.png',
+                imgSrc: '/build/i/Kyivstar.png',
                 url: 'http://kyivstar.ua',
                 name: 'kyivstar'
             });
@@ -43,7 +43,7 @@ var createProjects = function createProjects(callback) {
             var project = new Project({
                 title: 'Third project',
                 description: 'Lorem ipsum dolor sit amet',
-                imgSrc: '/src/i/Shopart.png',
+                imgSrc: '/build/i/Shopart.png',
                 url: 'https://shopart.ua',
                 name: 'shopart'
             });
