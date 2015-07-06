@@ -123,6 +123,8 @@ AppDispatcher.register(function(action) {
             _projects.loadedCount++;
 
             if (_projects.projects.length === _projects.loadedCount) {
+                // Reset count for new visits
+                _projects.loadedCount = 0;
                 ProjectsStore.emitLoad();
             }
 
