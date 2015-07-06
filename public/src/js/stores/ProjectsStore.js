@@ -5,10 +5,12 @@ var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
 
 var FETCH_EVENT = 'fetch';
+var LOAD_EVENT = 'load';
 
 var _projects = {
     projects: [],
-    isFetched: false
+    isFetched: false,
+    loadedCount: 0
 };
 
 function fetchAll() {
@@ -60,6 +62,9 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
     emitFetch: function() {
         this.emit(FETCH_EVENT);
     },
+    emitLoad: function() {
+        this.emit(LOAD_EVENT);
+    },
     /**
      * @param callback {Function}
      */
@@ -72,6 +77,17 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
      */
     removeFetchListener: function(callback) {
         this.removeListener(FETCH_EVENT, callback);
+    },
+
+    addLoadListener: function(callback) {
+        this.on(LOAD_EVENT, callback);
+    },
+
+    /**
+     * @param callback {Function}
+     */
+    removeLoadListener: function(callback) {
+        this.removeListener(LOAD_EVENT, callback);
     }
 });
 
@@ -99,6 +115,15 @@ AppDispatcher.register(function(action) {
                 });
             } else {
                 ProjectsStore.emitFetch();
+            }
+
+            break;
+
+        case AppConstants.LOAD_ITEM:
+            _projects.loadedCount++;
+
+            if (_projects.projects.length === _projects.loadedCount) {
+                ProjectsStore.emitLoad();
             }
 
             break;

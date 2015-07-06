@@ -1,7 +1,14 @@
 var React = require('react');
 var ProjectItem = require('./ProjectItem.react');
+var ProjectsStore = require('./../stores/ProjectsStore');
 
 var ProjectList = React.createClass({
+    componentDidMount: function() {
+        ProjectsStore.addLoadListener(this._onLoad);
+    },
+    componentWillUnmount: function() {
+        ProjectsStore.removeLoadListener(this._onLoad);
+    },
     render: function() {
         var projects = [];
 
@@ -20,6 +27,10 @@ var ProjectList = React.createClass({
         return (
             <ul className='projects'>{projects}</ul>
         )
+    },
+
+    _onLoad: function _onLoad() {
+        console.log('loaded');
     }
 });
 

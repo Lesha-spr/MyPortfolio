@@ -20,6 +20,12 @@ var ProjectsAction = {
             actionType: AppConstants.GET_ONE_PROJECT,
             name: name
         });
+    },
+
+    loadItem: () => {
+        AppDispatcher.dispatch({
+            actionType: AppConstants.LOAD_ITEM
+        })
     }
 
 };

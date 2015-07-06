@@ -1,5 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var ProjectsAction = require('./../actions/ProjectsAction');
 
 var ProjectItem = React.createClass({
     getInitialState: function() {
@@ -32,7 +33,6 @@ var ProjectItem = React.createClass({
                             className={imgClassName}
                             src={this.props.imgSrc}
                             alt={this.props.title}
-                            onload={this._onLoad}
                         />
                     </Link>
                 </div>
@@ -41,9 +41,7 @@ var ProjectItem = React.createClass({
     },
 
     _onLoad: function() {
-        this.setState({
-            isLoaded: true
-        });
+        ProjectsAction.loadItem();
     }
 });
 
