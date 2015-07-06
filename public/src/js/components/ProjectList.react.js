@@ -1,8 +1,10 @@
 var React = require('react');
+var stating = require('./mixins/stating');
 var ProjectItem = require('./ProjectItem.react');
 var ProjectsStore = require('./../stores/ProjectsStore');
 
 var ProjectList = React.createClass({
+    mixins: [stating],
     getInitialState: function() {
         return {
             isLoaded: false
@@ -16,8 +18,7 @@ var ProjectList = React.createClass({
     },
     render: function() {
         var projects = [];
-        var loadedClassName = this.state.isLoaded ? '' : ' projects_state_loading';
-        var listClassName = 'projects' + loadedClassName;
+        var className = this.toggleClass(this.state.isLoaded, 'projects', 'projects_state_loading');
 
         this.props.projects.forEach((project, index) => {
             projects.push(
@@ -32,7 +33,9 @@ var ProjectList = React.createClass({
         });
 
         return (
-            <ul className={listClassName}>{projects}</ul>
+            <div className={className}>
+                <ul className='projects__list'>{projects}</ul>
+            </div>
         )
     },
 

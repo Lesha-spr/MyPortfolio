@@ -1,11 +1,13 @@
 @project_item_padding: 10px;
 
 .projects {
-  .list();
   margin: 0 -@project_item_padding;
-  .clearfix();
-
   .spinner();
+}
+
+.projects__list {
+  .list();
+  .clearfix();
 }
 
 .projects__item {
@@ -27,4 +29,8 @@
 
 .projects__item__image {
   .image();
+
+  .projects_state_loading & {
+    visibility: hidden;
+  }
 }
