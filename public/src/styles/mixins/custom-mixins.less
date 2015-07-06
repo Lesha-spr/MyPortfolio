@@ -53,8 +53,8 @@
 
   &_state {
     &_loading {
-      .after();
-      &:after {
+      &:before {
+        .after();
         z-index: 1;
         top: 0;
         right: 0;
