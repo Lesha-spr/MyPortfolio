@@ -4,6 +4,12 @@
   .list();
   margin: 0 -@project_item_padding;
   .clearfix();
+
+  &_state {
+    &_loading {
+      background: #bbb;
+    }
+  }
 }
 
 .projects__item {
@@ -25,9 +31,4 @@
 
 .projects__item__image {
   .image();
-  transition: opacity, .5s, ease;
-
-  &_state_loading {
-    opacity: 0;
-  }
 }

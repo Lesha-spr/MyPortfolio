@@ -11,7 +11,7 @@ router.get('/projects', function(req, res, next) {
     project.getAll(function(err, projects) {
         if (err) return next(err);
 
-        res.json({projects: projects});
+        res.json(projects);
     });
 });
 

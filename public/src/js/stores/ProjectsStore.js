@@ -21,7 +21,7 @@ function fetchAll() {
         type: 'GET',
         success: function(projects) {
             if (projects) {
-                _projects = projects;
+                _projects.projects = projects;
                 _projects.isFetched = true;
             }
         }

@@ -3,6 +3,11 @@ var ProjectItem = require('./ProjectItem.react');
 var ProjectsStore = require('./../stores/ProjectsStore');
 
 var ProjectList = React.createClass({
+    getInitialState: function() {
+        return {
+            isLoaded: false
+        }
+    },
     componentDidMount: function() {
         ProjectsStore.addLoadListener(this._onLoad);
     },
@@ -11,6 +16,8 @@ var ProjectList = React.createClass({
     },
     render: function() {
         var projects = [];
+        var loadedClassName = this.state.isLoaded ? '' : ' projects_state_loading';
+        var listClassName = 'projects' + loadedClassName;
 
         this.props.projects.forEach((project, index) => {
             projects.push(
@@ -25,12 +32,14 @@ var ProjectList = React.createClass({
         });
 
         return (
-            <ul className='projects'>{projects}</ul>
+            <ul className={listClassName}>{projects}</ul>
         )
     },
 
     _onLoad: function _onLoad() {
-        console.log('loaded');
+        this.setState({
+            isLoaded: true
+        });
     }
 });
 

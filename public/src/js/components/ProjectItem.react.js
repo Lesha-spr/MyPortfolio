@@ -3,12 +3,6 @@ var Link = require('react-router').Link;
 var ProjectsAction = require('./../actions/ProjectsAction');
 
 var ProjectItem = React.createClass({
-    getInitialState: function() {
-        return {
-            isLoaded: false
-        }
-    },
-
     componentDidMount: function() {
         React.findDOMNode(this.refs.img).addEventListener('load', this._onLoad);
     },
@@ -18,9 +12,6 @@ var ProjectItem = React.createClass({
     },
 
     render: function() {
-        // TODO: refactor
-        var imgClassMod = this.state.isLoaded ? '' : ' projects__item__image_state_loading';
-        var imgClassName = 'projects__item__image' + imgClassMod;
 
         return (
             <li className='projects__item'>
@@ -30,7 +21,7 @@ var ProjectItem = React.createClass({
                     <Link to='project' className='projects__item__link' params={{name: this.props.name}}>
                         <img
                             ref='img'
-                            className={imgClassName}
+                            className='projects__item__image'
                             src={this.props.imgSrc}
                             alt={this.props.title}
                         />
