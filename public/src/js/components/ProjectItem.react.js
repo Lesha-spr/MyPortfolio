@@ -32,7 +32,6 @@ var ProjectItem = React.createClass({
     },
 
     _onLoad: function() {
-        console.log(1);
         ProjectsAction.loadItem();
     }
 });
