@@ -21,6 +21,11 @@
   }
 }
 
+.after() {
+  content: '';
+  position: absolute;
+}
+
 .link(@from: #fff, @to: #000, @speed: .25s) {
   color: @from;
   transition: color, @speed, ease;
@@ -41,4 +46,20 @@
 .image() {
   max-width: 100%;
   height: auto;
+}
+
+.spinner() {
+  position: relative;
+
+  &_state {
+    &_loading {
+      .after();
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: #bbb;
+    }
+  }
 }
