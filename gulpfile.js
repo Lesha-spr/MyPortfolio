@@ -75,11 +75,5 @@ gulp.task('watch', function() {
     });
 });
 
-gulp.task('watch_prod', function() {
-    watch('./public/src/i/**/*', function() {
-        gulp.run(['imagemin']);
-    });
-});
-
 gulp.task('build', ['compress', 'less', 'imagemin']);
 gulp.task('default', ['compress', 'less', 'imagemin', 'watch']);
