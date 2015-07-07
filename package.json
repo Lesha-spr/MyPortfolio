@@ -37,6 +37,7 @@
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
+    "rimraf": "^2.4.1",
     "serve-favicon": "~2.2.1",
     "underscore": "^1.8.3",
     "vinyl-buffer": "^1.0.0",

@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
+var rimraf = require('rimraf');
+var Imagemin = require('imagemin');
 var path = require('path');
 var async = require('async');
 var _ = require('underscore');
@@ -70,8 +72,19 @@ BaseService.prototype = _.extend({}, {
                         var newPath = path.join(__dirname, './../public/src/i/', req.files[file].originalname);
 
                         fs.writeFile(newPath, data, function(err) {
+                            if (err) callback(err, data);
+
+                            var mPath = path.join(__dirname, './../public');
                             reqData.imgSrc = '/build/i/' + req.files[file].originalname;
-                            callback(err, data);
+
+                            new Imagemin()
+                                .src(mPath + '/src/i/*.{gif,jpg,png,svg}')
+                                .dest(mPath + '/build/i')
+                                .run(function (err, files) {
+                                    rimraf('./public/tmp', function() {
+                                        callback(err, data);
+                                    });
+                                });
                         });
                     })
                 });

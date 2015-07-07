@@ -22,7 +22,7 @@ util.inherits(ProjectService, BaseService);
 /**
  * @param callback {Function}
  */
-ProjectService.prototype.getAll = function getAll(callback){
+ProjectService.prototype.getAll = function getAll(callback) {
     var _this = this;
     var parallel = [];
 
