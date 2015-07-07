@@ -9,7 +9,8 @@ var ProjectDetails = React.createClass({
             description: '',
             imgSrc: '',
             url: '',
-            name: ''
+            name: '',
+            technologies: []
         }
     },
     componentDidMount: function() {
@@ -20,9 +21,20 @@ var ProjectDetails = React.createClass({
         ProjectsStore.removeFetchListener(this._onGetOne);
     },
     render: function() {
+        var technologies = [];
+
+        this.state.technologies.forEach(function(technology, index) {
+            technologies.push(
+                <li key={index}>{technology.title}</li>
+            )
+        });
+
         return (
             <div className='project-details'>
                 <h2>{this.state.title}</h2>
+                <ul>
+                    {technologies}
+                </ul>
                 <p>{this.state.description}</p>
                 <a className='project-details__link' href={this.state.url}>
                     <img className='project-details__image' src={this.state.imgSrc} alt={this.state.title}/>

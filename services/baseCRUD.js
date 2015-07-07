@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+var fs = require('fs');
+var path = require('path');
+var async = require('async');
 var _ = require('underscore');
 var ErrorService = require('./../util/Errors');
 
@@ -47,6 +50,52 @@ BaseService.prototype = _.extend({}, {
 
             callback(err, item);
         });
+    },
+
+    create: function create(req, callback) {
+        var _this = this;
+        var id = req.body._id || new mongoose.mongo.ObjectId();
+        var asyncTasks = [];
+        var reqData = _.extend({}, req.body);
+
+        // TODO: extend to Files obj in case of multiple files
+        // TODO: validate files
+        // TODO: refactor
+        delete reqData._id;
+
+        if (req.files) {
+            Object.keys(req.files).map(function(file) {
+                asyncTasks.push(function(callback) {
+                    fs.readFile(req.files[file].path, function(err, data) {
+                        var newPath = path.join(__dirname, './../public/src/i/', req.files[file].originalname);
+
+                        fs.writeFile(newPath, data, function(err) {
+                            reqData.imgSrc = '/build/i/' + req.files[file].originalname;
+                            callback(err, data);
+                        });
+                    })
+                });
+            });
+
+            async.parallel(asyncTasks, function(err, result) {
+                if (err) throw err;
+
+                console.log(result);
+
+                _this.Model.findOneAndUpdate({
+                        _id: id
+                    },
+                    reqData,
+                    {
+                        new: true,
+                        upsert: true
+                    },
+                    function(err, item) {
+                        return callback(err, item);
+                    }
+                );
+            });
+        }
     }
 });
 
