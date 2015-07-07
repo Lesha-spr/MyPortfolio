@@ -6,6 +6,7 @@ var ProjectsStore = require('./../stores/ProjectsStore');
 var ProjectList = React.createClass({
     mixins: [stating],
     getInitialState: function() {
+        //
         return {
             isLoaded: false
         }
