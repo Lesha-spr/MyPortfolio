@@ -81,5 +81,5 @@ gulp.task('watch_prod', function() {
     });
 });
 
-gulp.task('build', ['compress', 'less', 'imagemin', 'watch_prod']);
+gulp.task('build', ['compress', 'less', 'imagemin']);
 gulp.task('default', ['compress', 'less', 'imagemin', 'watch']);
