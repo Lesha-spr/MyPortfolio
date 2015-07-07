@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var async = require('async');
+var rimraf = require('rimraf');
 var Project = require('./models/Project').Project;
 var Technology = require('./models/Technology').Technology;
 
@@ -12,6 +13,12 @@ var open = function open(callback) {
 var dropDatabase = function dropDatabase(callback) {
     var db = mongoose.connection.db;
     db.dropDatabase(callback);
+};
+
+var dropMedia = function dropMedia(callback) {
+    rimraf('./public/build/i', function() {
+        callback();
+    });
 };
 
 var createProjects = function createProjects(callback) {
@@ -87,6 +94,7 @@ var createTechnologies = function createProjects(callback) {
 
 async.series([
         open,
+        dropMedia,
         dropDatabase,
         createTechnologies,
         createProjects
