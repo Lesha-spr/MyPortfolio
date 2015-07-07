@@ -1,13 +1,16 @@
 @project_item_padding: 10px;
+@lines_to_show: 3;
+@font_size: 1rem;
+@line_height: 1;
 
 .projects {
-  margin: 0 -@project_item_padding;
   .spinner();
 }
 
 .projects__list {
   .list();
   .clearfix();
+  margin: 0 -@project_item_padding;
 }
 
 .projects__item {
@@ -20,11 +23,32 @@
 }
 
 .projects__item__link {
-  display: inline-block;
+  display: block;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.projects__item__description {
+  display: block;
+  display: -webkit-box;
+  height: @line_height * @lines_to_show * @font_size;
+  margin-bottom: 10px;
+  font-size: @font_size;
+  line-height: @line_height;
+  -webkit-line-clamp: @lines_to_show;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projects__item__image-box {
+  display: block;
   width: 100%;
   height: 200px;
   overflow: hidden;
-  vertical-align: top;
 }
 
 .projects__item__image {

@@ -25,8 +25,8 @@ var createProjects = function createProjects(callback) {
     async.parallel([
         function(callback) {
             var project = new Project({
-                title: 'First project',
-                description: 'Lorem ipsum dolor sit amet',
+                title: 'Sportchek',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales erat velit, ac commodo libero luctus at. Cras posuere luctus lorem in tristique. Vivamus elementum sit amet urna non rutrum. In aliquet est sit amet purus congue aliquam. Maecenas facilisis ultrices metus eget mollis. Ut at porta enim. Proin tempus ex in tortor aliquam, sit amet auctor felis varius. Aenean rhoncus, turpis eget euismod lobortis, justo ligula sodales sem, a posuere elit est id lectus. Aenean in velit eget augue efficitur blandit. Ut non ultricies sem, ut varius nunc. Donec rhoncus justo sit amet nisi gravida, non dignissim quam iaculis. Morbi suscipit hendrerit varius.',
                 imgSrc: '/build/i/Sportchek.png',
                 url: 'https://www.sportchek.ca/',
                 name: 'sportchek',
@@ -39,8 +39,8 @@ var createProjects = function createProjects(callback) {
         },
         function(callback) {
             var project = new Project({
-                title: 'Second project',
-                description: 'Lorem ipsum dolor sit amet',
+                title: 'Kyivstar',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales erat velit, ac commodo libero luctus at. Cras posuere luctus lorem in tristique. Vivamus elementum sit amet urna non rutrum. In aliquet est sit amet purus congue aliquam. Maecenas facilisis ultrices metus eget mollis. Ut at porta enim. Proin tempus ex in tortor aliquam, sit amet auctor felis varius. Aenean rhoncus, turpis eget euismod lobortis, justo ligula sodales sem, a posuere elit est id lectus. Aenean in velit eget augue efficitur blandit. Ut non ultricies sem, ut varius nunc. Donec rhoncus justo sit amet nisi gravida, non dignissim quam iaculis. Morbi suscipit hendrerit varius.',
                 imgSrc: '/build/i/Kyivstar.png',
                 url: 'http://kyivstar.ua',
                 name: 'kyivstar',
@@ -53,8 +53,8 @@ var createProjects = function createProjects(callback) {
         },
         function(callback) {
             var project = new Project({
-                title: 'Third project',
-                description: 'Lorem ipsum dolor sit amet',
+                title: 'Shopart',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales erat velit, ac commodo libero luctus at. Cras posuere luctus lorem in tristique. Vivamus elementum sit amet urna non rutrum. In aliquet est sit amet purus congue aliquam. Maecenas facilisis ultrices metus eget mollis. Ut at porta enim. Proin tempus ex in tortor aliquam, sit amet auctor felis varius. Aenean rhoncus, turpis eget euismod lobortis, justo ligula sodales sem, a posuere elit est id lectus. Aenean in velit eget augue efficitur blandit. Ut non ultricies sem, ut varius nunc. Donec rhoncus justo sit amet nisi gravida, non dignissim quam iaculis. Morbi suscipit hendrerit varius.',
                 imgSrc: '/build/i/Shopart.png',
                 url: 'https://shopart.ua',
                 name: 'shopart'

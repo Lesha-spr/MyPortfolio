@@ -32,13 +32,17 @@ var ProjectDetails = React.createClass({
         return (
             <div className='project-details'>
                 <h2>{this.state.title}</h2>
-                <ul>
-                    {technologies}
-                </ul>
-                <p>{this.state.description}</p>
                 <a className='project-details__link' href={this.state.url}>
                     <img className='project-details__image' src={this.state.imgSrc} alt={this.state.title}/>
                 </a>
+                <div className='project-details__description'>
+                    <h3>Technologies used</h3>
+                    <ul>
+                        {technologies}
+                    </ul>
+                    <h3>Description</h3>
+                    <p>{this.state.description}</p>
+                </div>
             </div>
         );
     },
