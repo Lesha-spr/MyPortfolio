@@ -10,6 +10,8 @@ var uglify = require('gulp-uglify');
 var inject = require('gulp-inject');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 gulp.task('compress', function() {
     var b = browserify({
@@ -73,5 +75,5 @@ gulp.task('watch', function() {
     });
 });
 
-gulp.task('build', ['compress', 'less']);
-gulp.task('default', ['compress', 'less', 'watch']);
+gulp.task('build', ['compress', 'less', 'imagemin']);
+gulp.task('default', ['compress', 'less', 'imagemin', 'watch']);
