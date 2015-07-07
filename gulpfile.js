@@ -10,6 +10,8 @@ var uglify = require('gulp-uglify');
 var inject = require('gulp-inject');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
 
 gulp.task('compress', function() {
     var b = browserify({
@@ -31,7 +33,7 @@ gulp.task('compress', function() {
 });
 
 gulp.task('less', function() {
-    return gulp.src('public/src/styles/styles.less')
+    return gulp.src(['public/src/styles/styles.less', 'public/src/styles/admin.less'])
     /**
      * Dynamically injects @import statements into the main app.less file, allowing
      * .less files to be placed around the app structure with the component
@@ -49,6 +51,16 @@ gulp.task('less', function() {
         .pipe(gulp.dest('public/build/styles'));
 });
 
+gulp.task('imagemin', function () {
+    return gulp.src('public/src/i/*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest('public/build/i'));
+});
+
 gulp.task('watch', function() {
     watch('./public/src/js/**/*', function() {
         gulp.run(['compress']);
@@ -57,8 +69,17 @@ gulp.task('watch', function() {
     watch('./public/src/styles/**/*', function() {
         gulp.run(['less']);
     });
+
+    watch('./public/src/i/**/*', function() {
+        gulp.run(['imagemin']);
+    });
 });
 
+gulp.task('watch_prod', function() {
+    watch('./public/src/i/**/*', function() {
+        gulp.run(['imagemin']);
+    });
+});
 
-gulp.task('build', ['compress', 'less']);
-gulp.task('default', ['compress', 'less', 'watch']);
+gulp.task('build', ['compress', 'less', 'imagemin', 'watch_prod']);
+gulp.task('default', ['compress', 'less', 'imagemin', 'watch']);
