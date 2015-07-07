@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 var rimraf = require('rimraf');
 var Imagemin = require('imagemin');
+var pngquant = require('imagemin-pngquant');
 var path = require('path');
 var async = require('async');
 var _ = require('underscore');
@@ -77,12 +78,16 @@ BaseService.prototype = _.extend({}, {
                             var mPath = path.join(__dirname, './../public');
                             reqData.imgSrc = '/build/i/' + req.files[file].originalname;
 
+                            // TODO: use async waterfall
                             new Imagemin()
-                                .src(mPath + '/src/i/*.{gif,jpg,png,svg}')
+                                .src(newPath)
                                 .dest(mPath + '/build/i')
+                                .use(pngquant())
                                 .run(function (err, files) {
-                                    rimraf('./public/tmp', function() {
-                                        callback(err, data);
+                                    rimraf(req.files[file].path, function() {
+                                        rimraf(newPath, function() {
+                                            callback(err, data);
+                                        });
                                     });
                                 });
                         });
