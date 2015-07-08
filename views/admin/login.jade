@@ -1,0 +1,6 @@
+extends layout
+
+block content
+   form(action='/services/login', method='POST')
+      input(name='password', type='password')
+      input(type='submit')

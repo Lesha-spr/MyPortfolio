@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 var ErrorService = require('./../util/Errors');
 var _ = require('underscore');
+var LoginService = require('./../services/login');
 var ProjectService = require('./../services/project');
 var TechnologyService = require('./../services/technology');
 
 // Service instance
 var project = new ProjectService();
 var technology = new TechnologyService();
+var login = new LoginService();
 
 router.get('/projects', function(req, res, next) {
     project.getAll(function(err, projects) {
@@ -54,6 +56,15 @@ router.use(function(err, req, res, next) {
     }
 
     next();
+});
+
+// TODO: make it OK!
+router.post('/login', function(req, res, next) {
+    if (login.validate(req.body.password)) {
+        res.cookie('isAdmin', true, { maxAge: 1000 * 60 * 60, httpOnly: true });
+    }
+
+    res.redirect('/admin');
 });
 
 module.exports = router;
