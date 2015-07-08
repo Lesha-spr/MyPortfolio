@@ -1,0 +1,22 @@
+extends base
+
+block main
+    form(action='/services/projects/create', method='POST', enctype='multipart/form-data')
+        input(type='hidden', name='id', value='#{project._id}')
+        .row
+            input(name='title', type='text' value='#{project.title}')
+        .row
+            textarea(name='description'): #{project.description}
+        .row
+            img(src='#{project.imgSrc}')
+            input(name='image', type='file')
+        .row
+            input(name='url', value='#{project.url}')
+        .row
+            input(name='name', value='#{project.name}')
+        each technology in technologies
+            label #{technology.title}
+                input(type='checkbox', name='technologies', value='#{technology.id}')
+                br
+        .row
+            input(type='submit')

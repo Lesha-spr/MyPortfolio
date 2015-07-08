@@ -1,0 +1,6 @@
+- var nav = [{title: 'Projects', uri: '/admin'}, {title: 'Technologies', uri: '/admin/technologies'}];
+
+nav.nav
+    each item in nav
+        .nav__item
+            a(href='#{item.uri}') #{item.title}

@@ -57,7 +57,7 @@ BaseService.prototype = _.extend({}, {
 
     create: function create(req, callback) {
         var _this = this;
-        var id = req.body._id || new mongoose.mongo.ObjectId();
+        var id = req.body.id || new mongoose.mongo.ObjectId();
         var asyncTasks = [];
         var reqData = _.extend({}, req.body);
 

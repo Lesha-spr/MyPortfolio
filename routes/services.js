@@ -35,7 +35,7 @@ router.post('/projects/create', function(req, res, next) {
     if (req.body) {
         project.create(req, function() {
             // TODO: prepare response
-            res.json(req.body);
+            res.redirect('/admin');
         });
     } else {
         next();

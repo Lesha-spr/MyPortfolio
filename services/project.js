@@ -81,8 +81,7 @@ ProjectService.prototype.getTechs = function(item, callback) {
         asyncTasks.push(function(callback) {
             technology.getOne('_id', id, function(err, technology) {
                 if (technology) {
-                    item.technologies[index] = {};
-                    item.technologies[index].title = technology.title;
+                    item.technologies[index] = technology;
                 }
 
                 callback(err, technology);
