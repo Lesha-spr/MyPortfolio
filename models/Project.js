@@ -24,7 +24,8 @@ var schema = new Schema({
         unique: true
     },
     technologies: {
-        type: Array
+        type: Array,
+        default: []
     },
     created: {
         type: Date,

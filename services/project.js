@@ -24,7 +24,7 @@ util.inherits(ProjectService, BaseService);
  */
 ProjectService.prototype.getAll = function getAll(callback) {
     var _this = this;
-    var parallel = [];
+    var asyncTasks = [];
 
     this.Model.find({}, function(err, collection) {
         if (!collection.length) {
@@ -34,12 +34,12 @@ ProjectService.prototype.getAll = function getAll(callback) {
         }
 
         collection.map(function(item) {
-            parallel.push(function(callback) {
-                _this.getTechs(item, callback);
+            asyncTasks.push(function(callback) {
+                _this.join(item, technology, 'technologies', callback);
             });
         });
 
-        async.parallel(parallel, function(err) {
+        async.parallel(asyncTasks, function(err) {
             callback(err, collection);
         });
     });
@@ -64,33 +64,7 @@ ProjectService.prototype.getOne = function getOne(key, value, callback) {
             }));
         }
 
-        _this.getTechs(item, callback);
-    });
-};
-
-// TODO: describe method fully
-/**
- *
- * @param item {Object} db record
- * @param callback {Function}
- */
-ProjectService.prototype.getTechs = function(item, callback) {
-    var asyncTasks = [];
-
-    item.technologies.forEach(function(id, index) {
-        asyncTasks.push(function(callback) {
-            technology.getOne('_id', id, function(err, technology) {
-                if (technology) {
-                    item.technologies[index] = technology;
-                }
-
-                callback(err, technology);
-            });
-        });
-    });
-
-    async.parallel(asyncTasks, function(err) {
-        callback(err, item);
+        _this.join(item, technology, 'technologies', callback);
     });
 };
 

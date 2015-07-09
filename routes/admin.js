@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var async = require('async');
 var ErrorService = require('./../util/Errors');
+var mongoose = require('mongoose');
 var _ = require('underscore');
 
 var ProjectsService = require('./../services/project');
@@ -31,30 +32,44 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/projects/:id', function(req, res, next) {
-    async.parallel([
-        function(callback) {
-            project.getOne('_id', req.params.id, function(err, project) {
-                callback(err, project);
+    if (req.params.id === 'new') {
+        res.render('admin/project');
+    } else {
+        async.parallel([
+            function(callback) {
+                project.getOne('_id', req.params.id, function(err, project) {
+                    callback(err, project);
+                });
+            },
+            function(callback) {
+                technology.getAll(function(err, technologies) {
+                    callback(err, technologies);
+                });
+            }
+        ], function(err, result) {
+            if (err) return next(err);
+
+            var project = result[0];
+            var technologies = result[1];
+
+            var flatTechs = technologies.map(function(technology) {
+                return technology.toObject();
             });
-        },
-        function(callback) {
-            technology.getAll(function(err, technologies) {
-                callback(err, technologies);
+
+            flatTechs.forEach(function(technology) {
+                project.technologies.forEach(function(projectTech) {
+                    if (technology._id.equals(projectTech._id)) {
+                        technology.isActive = true;
+                    }
+                });
             });
-        }
-    ], function(err, result) {
-        if (err) return next(err);
 
-        var project = result[0];
-        var technologies = result[1];
-
-        // TODO: mark active technologies
-
-        res.render('admin/project', {
-            project: project,
-            technologies: technologies
+            res.render('admin/project', {
+                project: project,
+                technologies: flatTechs
+            });
         });
-    });
+    }
 });
 
 router.get('/technologies', function(req, res, next) {

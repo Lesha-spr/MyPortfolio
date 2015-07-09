@@ -55,6 +55,45 @@ BaseService.prototype = _.extend({}, {
         });
     },
 
+    /**
+     *
+     * @param item {Object} db record
+     * @param service {Object} service instance
+     * @param field {String} field to set
+     * @param callback {Function}
+     */
+    join: function join(item, service, field, callback) {
+        var asyncTasks = [];
+
+        if (_.isArray(item[field])) {
+            item[field].forEach(function(id, index) {
+                asyncTasks.push(function(callback) {
+                    service.getOne('_id', id, function(err, dependency) {
+                        if (dependency) {
+                            item[field][index] = dependency;
+                        }
+
+                        callback(err, dependency);
+                    });
+                });
+            });
+        } else {
+            asyncTasks.push(function(callback) {
+                service.getOne('_id', id, function(err, dependency) {
+                    if (dependency) {
+                        item[field] = dependency;
+                    }
+
+                    callback(err, dependency);
+                });
+            });
+        }
+
+        async.parallel(asyncTasks, function(err) {
+            callback(err, item);
+        });
+    },
+
     create: function create(req, callback) {
         var _this = this;
         var id = req.body.id || new mongoose.mongo.ObjectId();
@@ -94,26 +133,26 @@ BaseService.prototype = _.extend({}, {
                     })
                 });
             });
-
-            async.parallel(asyncTasks, function(err, result) {
-                if (err) throw err;
-
-                console.log(result);
-
-                _this.Model.findOneAndUpdate({
-                        _id: id
-                    },
-                    reqData,
-                    {
-                        new: true,
-                        upsert: true
-                    },
-                    function(err, item) {
-                        return callback(err, item);
-                    }
-                );
-            });
         }
+
+        async.parallel(asyncTasks, function(err, result) {
+            if (err) throw err;
+
+            console.log(result);
+
+            _this.Model.findOneAndUpdate({
+                    _id: id
+                },
+                reqData,
+                {
+                    new: true,
+                    upsert: true
+                },
+                function(err, item) {
+                    return callback(err, item);
+                }
+            );
+        });
     }
 });
 

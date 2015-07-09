@@ -1,22 +1,28 @@
 extends base
 
+- var data = project && technologies;
+
 block main
     form(action='/services/projects/create', method='POST', enctype='multipart/form-data')
-        input(type='hidden', name='id', value='#{project._id}')
+        if (project)
+            input(type='hidden', name='id', value='#{project._id}')
         .row
-            input(name='title', type='text' value='#{project.title}')
+            input(name='title', type='text' value=(project ? project.title : ''))
         .row
-            textarea(name='description'): #{project.description}
+            textarea(name='description')
+                | #{(project ? project.description : '')}
         .row
-            img(src='#{project.imgSrc}')
+            if (project)
+                img(src='#{project.imgSrc}')
             input(name='image', type='file')
         .row
-            input(name='url', value='#{project.url}')
+            input(name='url', value=(project ? project.url : ''))
         .row
-            input(name='name', value='#{project.name}')
-        each technology in technologies
-            label #{technology.title}
-                input(type='checkbox', name='technologies', value='#{technology.id}')
-                br
+            input(name='name', value=(project ? project.name : ''))
+        if (technologies)
+            each technology in technologies
+                label #{technology.title}
+                    input(type='checkbox', name='technologies', value='#{technology._id}', checked=(technology.isActive) ? 'checked' : undefined)
+                    br
         .row
             input(type='submit')
