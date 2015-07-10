@@ -15,6 +15,8 @@ var ErrorService = function(status, message) {
         type: TYPES[status],
         message: message || http.STATUS_CODES[status] || 'Error'
     };
+
+    this.message = this.data.message.error || http.STATUS_CODES[status] || 'Error';
 };
 
 util.inherits(ErrorService, Error);

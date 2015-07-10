@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
         res.render('admin/index', {
             projects: projects
         });
-    });
+    }, req.xhr);
 });
 
 router.get('/projects/:id', function(req, res, next) {

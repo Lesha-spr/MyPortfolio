@@ -16,7 +16,7 @@ router.get('/projects', function(req, res, next) {
         if (err) return next(err);
 
         res.json(projects);
-    });
+    }, req.xhr);
 });
 
 router.get('/projects/:name', function(req, res, next) {

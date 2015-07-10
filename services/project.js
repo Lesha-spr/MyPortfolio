@@ -21,13 +21,14 @@ util.inherits(ProjectService, BaseService);
 
 /**
  * @param callback {Function}
+ * @param isAjax {Boolean}
  */
-ProjectService.prototype.getAll = function getAll(callback) {
+ProjectService.prototype.getAll = function getAll(callback, isAjax) {
     var _this = this;
     var asyncTasks = [];
 
     this.Model.find({}, function(err, collection) {
-        if (!collection.length) {
+        if (isAjax && !collection.length) {
             return callback(new ErrorService(424, {
                 error: _this.name + '.isEmptyCollection'
             }));
