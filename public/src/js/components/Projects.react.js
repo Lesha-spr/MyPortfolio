@@ -43,7 +43,11 @@ var Projects = React.createClass({
     },
 
     _onFetch: function() {
-        this.setState(_.extend({}, ProjectsStore.getAll(), {isFetched: true, isLoaded: ProjectsStore.isLoaded()}));
+        this.setState({
+            projects: ProjectsStore.getAll(),
+            isLoaded: ProjectsStore.isLoaded(),
+            isFetched: ProjectsStore.isFetched()
+        });
     },
 
     _onBeforeFetch: function() {

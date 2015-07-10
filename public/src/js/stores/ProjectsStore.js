@@ -49,7 +49,7 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
      * @return {Object}
      */
     getAll: () => {
-        return _projects;
+        return _projects.projects;
     },
 
     /**
@@ -62,6 +62,9 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
 
     isLoaded: () => {
         return _projects.projects.length === _projects.loadedCount && _projects.isFetched;
+    },
+    isFetched: () => {
+        return _projects.isFetched;
     },
     emitBeforeFetch: function() {
         this.emit(BEFORE_FETCH_EVENT);
