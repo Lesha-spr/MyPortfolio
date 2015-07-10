@@ -25,7 +25,13 @@ var ProjectsAction = {
     loadItem: () => {
         AppDispatcher.dispatch({
             actionType: AppConstants.LOAD_ITEM
-        })
+        });
+    },
+
+    dropCount: () => {
+        AppDispatcher.dispatch({
+            actionType: AppConstants.DROP_COUNT
+        });
     }
 
 };

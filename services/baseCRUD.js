@@ -140,11 +140,7 @@ BaseService.prototype = _.extend({}, {
 
             console.log(result);
 
-            _this.Model.findOneAndUpdate({
-                    _id: id
-                },
-                reqData,
-                {
+            _this.Model.findOneAndUpdate({_id: id}, reqData, {
                     new: true,
                     upsert: true
                 },

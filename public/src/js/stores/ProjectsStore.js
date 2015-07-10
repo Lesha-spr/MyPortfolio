@@ -4,6 +4,7 @@ var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
 
+var BEFORE_FETCH_EVENT = 'before-fetch';
 var FETCH_EVENT = 'fetch';
 var LOAD_EVENT = 'load';
 
@@ -59,11 +60,24 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         return _.findWhere(_projects.projects, {name: name});
     },
 
+    isLoaded: () => {
+        return _projects.projects.length === _projects.loadedCount && _projects.isFetched;
+    },
+    emitBeforeFetch: function() {
+        this.emit(BEFORE_FETCH_EVENT);
+    },
+
     emitFetch: function() {
         this.emit(FETCH_EVENT);
     },
     emitLoad: function() {
         this.emit(LOAD_EVENT);
+    },
+    addBeforeFetchListener: function(callback) {
+        this.on(BEFORE_FETCH_EVENT, callback);
+    },
+    removeBeforeFetchListener: function(callback) {
+        this.removeListener(BEFORE_FETCH_EVENT, callback);
     },
     /**
      * @param callback {Function}
@@ -96,6 +110,8 @@ AppDispatcher.register(function(action) {
     switch(action.actionType) {
 
         case AppConstants.FETCH_PROJECTS:
+            ProjectsStore.emitBeforeFetch();
+
             if (action.force || !_projects.isFetched) {
                 $.when(fetchAll()).done(function() {
                     ProjectsStore.emitFetch();
@@ -123,10 +139,13 @@ AppDispatcher.register(function(action) {
             _projects.loadedCount++;
 
             if (_projects.projects.length === _projects.loadedCount) {
-                // Reset count for new visits
-                _projects.loadedCount = 0;
                 ProjectsStore.emitLoad();
             }
+
+            break;
+
+        case AppConstants.DROP_COUNT:
+            _projects.loadedCount = 0;
 
             break;
 

@@ -3,12 +3,12 @@ var stating = require('./mixins/stating');
 var ProjectItem = require('./ProjectItem.react');
 var ProjectsStore = require('./../stores/ProjectsStore');
 
+// NOTE: state.isLoaded is for loaded images, props.isFetched is for completed ajax call
 var ProjectList = React.createClass({
     mixins: [stating],
     getInitialState: function() {
-        //
         return {
-            isLoaded: false
+            isLoaded: ProjectsStore.isLoaded()
         }
     },
     componentDidMount: function() {
@@ -19,7 +19,7 @@ var ProjectList = React.createClass({
     },
     render: function() {
         var projects = [];
-        var className = this.toggleClass(this.state.isLoaded, 'projects', 'projects_state_loading');
+        var className = this.toggleClass(this.state.isLoaded && this.props.isFetched, 'projects', 'projects_state_loading');
 
         this.props.projects.forEach((project, index) => {
             projects.push(

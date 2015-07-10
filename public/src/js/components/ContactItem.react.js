@@ -1,10 +1,10 @@
 var React = require('react');
-
-var CLASS_NAME = 'contacts__item__link ';
+var stating = require('./mixins/stating');
 
 var ContactsItem = React.createClass({
+    mixins: [stating],
     render: function() {
-        var className = this.props.modifier ? CLASS_NAME + this.props.modifier : CLASS_NAME;
+        var className = this.toggleClass(!this.props.modifier, 'contacts__item__link', this.props.modifier);
 
         return (
             <li className='contacts__item'>

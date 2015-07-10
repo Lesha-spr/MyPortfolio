@@ -69,10 +69,6 @@ gulp.task('watch', function() {
     watch('./public/src/styles/**/*', function() {
         gulp.run(['less']);
     });
-
-    watch('./public/src/i/**/*', function() {
-        gulp.run(['imagemin']);
-    });
 });
 
 gulp.task('build', ['compress', 'less', 'imagemin']);

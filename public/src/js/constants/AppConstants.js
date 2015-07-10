@@ -5,5 +5,6 @@ module.exports = keyMirror({
     GET_ONE_PROJECT: null,
     GET_NAV: null,
     GET_CONTACTS: null,
-    LOAD_ITEM: null
+    LOAD_ITEM: null,
+    DROP_COUNT: null
 });
