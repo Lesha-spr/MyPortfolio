@@ -12,13 +12,15 @@ var Projects = React.createClass({
     getInitialState: function() {
         return {
             projects: [],
-            isLoaded: false
+            isLoaded: false,
+            isFetched: false
         }
     },
 
     componentDidMount: function() {
         ProjectsStore.addBeforeFetchListener(this._onBeforeFetch);
         ProjectsStore.addFetchListener(this._onFetch);
+        ProjectsStore.addLoadListener(this._onLoad);
         this._fetch(false);
     },
 
@@ -26,6 +28,7 @@ var Projects = React.createClass({
         ProjectsAction.dropCount();
         ProjectsStore.removeBeforeFetchListener(this._onBeforeFetch);
         ProjectsStore.removeFetchListener(this._onFetch);
+        ProjectsStore.removeLoadListener(this._onLoad);
     },
 
     render: function() {
@@ -33,19 +36,25 @@ var Projects = React.createClass({
             <div>
                 <h2>Projects</h2>
                 <button className='ui-button' onClick={this._fetch.bind(this, true)}>Refresh</button>
-                <ProjectList isFetched={this.state.isFetched} projects={this.state.projects}/>
+                <ProjectList isLoaded={this.state.isLoaded} isFetched={this.state.isFetched} projects={this.state.projects}/>
                 <RouteHandler/>
             </div>
         )
     },
 
     _onFetch: function() {
-        this.setState(_.extend({}, ProjectsStore.getAll(), {isFetched: true}));
+        this.setState(_.extend({}, ProjectsStore.getAll(), {isFetched: true, isLoaded: ProjectsStore.isLoaded()}));
     },
 
     _onBeforeFetch: function() {
         this.setState({
-            isFetched: false
+            isFetched: false,
+            isLoaded: false
+        });
+    },
+    _onLoad: function _onLoad() {
+        this.setState({
+            isLoaded: true
         });
     },
     /**

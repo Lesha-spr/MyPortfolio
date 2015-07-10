@@ -139,7 +139,6 @@ AppDispatcher.register(function(action) {
             _projects.loadedCount++;
 
             if (_projects.projects.length === _projects.loadedCount) {
-                console.log('finished');
                 ProjectsStore.emitLoad();
             }
 
