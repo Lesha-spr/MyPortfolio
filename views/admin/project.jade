@@ -3,6 +3,9 @@ extends base
 - var data = project && technologies;
 
 block main
+    if (project)
+        - var removeUrl = '/services/projects/remove/' + project._id;
+        a(href='#{removeUrl}') Remove
     form(action='/services/projects/create', method='POST', enctype='multipart/form-data')
         if (project)
             input(type='hidden', name='id', value='#{project._id}')

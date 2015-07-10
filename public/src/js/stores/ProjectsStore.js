@@ -61,7 +61,8 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
     },
 
     isLoaded: () => {
-        return _projects.projects.length === _projects.loadedCount && _projects.isFetched;
+        // NOTE: <= in case of removed item
+        return _projects.projects.length <= _projects.loadedCount && _projects.isFetched;
     },
     isFetched: () => {
         return _projects.isFetched;

@@ -42,6 +42,15 @@ router.post('/projects/create', function(req, res, next) {
     }
 });
 
+router.get('/projects/remove/:id', function(req, res, next) {
+    project.remove('_id', req.params.id, function(err, item) {
+        if (err) return next(err);
+
+        // TODO: prepare response
+        res.redirect('/admin');
+    });
+});
+
 router.get('/technologies', function(req, res, next) {
     technology.getAll(function(err, technologies) {
         if (err) return next(err);

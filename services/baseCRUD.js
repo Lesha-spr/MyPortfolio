@@ -149,6 +149,23 @@ BaseService.prototype = _.extend({}, {
                 }
             );
         });
+    },
+
+    remove: function remove(key, value, callback) {
+        var _this = this;
+        var criteria = {};
+
+        criteria[key] = value;
+
+        this.Model.findOneAndRemove(criteria, function(err, item) {
+            //if (_.isEmpty(item)) {
+            //    return callback(new ErrorService(424, {
+            //        error: _this.name + '.isEmpty'
+            //    }));
+            //}
+
+            callback(err, item);
+        });
     }
 });
 
