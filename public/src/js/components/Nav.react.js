@@ -21,7 +21,9 @@ var Nav = React.createClass({
 
         this.state.nav.forEach((navItem, index) => {
             navItems.push(
-                <NavItem key={index} title={navItem.title} href={navItem.href} />
+                <NavItem key={index} {...navItem}>
+                    {navItem.title}
+                </NavItem>
             )
         });
 

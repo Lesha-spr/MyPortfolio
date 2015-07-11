@@ -7,7 +7,7 @@ var NavItem = React.createClass({
     render: function() {
         return (
             <div className='nav__item'>
-                <Link className='nav__item__link' activeClassName={ACTIVE_CLASS} to={this.props.href}>{this.props.title}</Link>
+                <Link className='nav__item__link' activeClassName={ACTIVE_CLASS} to={this.props.href}>{this.props.children}</Link>
             </div>
         );
     }

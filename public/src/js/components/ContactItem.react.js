@@ -8,7 +8,7 @@ var ContactsItem = React.createClass({
 
         return (
             <li className='contacts__item'>
-                <a href={this.props.href} target='_blank' className={className}>{this.props.title}</a>
+                <a href={this.props.href} target='_blank' className={className}>{this.props.children}</a>
             </li>
         );
     }

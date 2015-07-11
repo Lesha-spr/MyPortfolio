@@ -36,7 +36,7 @@ var Projects = React.createClass({
             <div>
                 <h2>Projects</h2>
                 <button className='ui-button' onClick={this._fetch.bind(this, true)}>Refresh</button>
-                <ProjectList isLoaded={this.state.isLoaded} isFetched={this.state.isFetched} projects={this.state.projects}/>
+                <ProjectList {...this.state}/>
                 <RouteHandler/>
             </div>
         )

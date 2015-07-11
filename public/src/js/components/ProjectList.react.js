@@ -13,10 +13,7 @@ var ProjectList = React.createClass({
             projects.push(
                 <ProjectItem
                     key={index}
-                    name={project.name}
-                    title={project.title}
-                    description={project.description}
-                    imgSrc={project.imgSrc}
+                    {...project}
                 />
             );
         });
