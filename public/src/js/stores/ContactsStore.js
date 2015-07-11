@@ -8,31 +8,26 @@ var GET_EVENT = 'get';
 var _contacts = {
     contacts: [
         {
-            _id: '1',
             title: 'Email',
             href: 'mailto:voodoo.spr@gmail.com',
             modifier: 'contacts__item__link_gmail'
         },
         {
-            _id: '2',
             title: 'Skype',
             href: 'skype:alexeii68?chat',
             modifier: 'contacts__item__link_skype'
         },
         {
-            _id: '3',
             title: 'Github',
             href: 'https://github.com/Lesha-spr',
             modifier: 'contacts__item__link_github'
         },
         {
-            _id: '4',
             title: 'Facebook',
             href: 'https://www.facebook.com/profile.php?id=100008122232589',
             modifier: 'contacts__item__link_facebook'
         },
         {
-            _id: '5',
             title: 'Stackoverflow',
             href: 'http://stackoverflow.com/users/4713775/%D0%9B%D1%91%D1%88%D0%B0-%D0%90%D0%BD',
             modifier: 'contacts__item__link_stackoverflow'
