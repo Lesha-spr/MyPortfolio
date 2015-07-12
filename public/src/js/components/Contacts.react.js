@@ -21,16 +21,16 @@ var Contacts = React.createClass({
 
         this.state.contacts.forEach((contact, index) => {
             contacts.push(
-                <ContactItem key={index} {...contact}>
-                    {contact.title}
-                </ContactItem>
+                <ContactItem key={index} {...contact}/>
             )
         });
 
         return (
-            <div className='contacts'>
+            <div>
                 <h2>Contacts</h2>
-                <ul className='contacts__list'>{contacts}</ul>
+                <div className='contacts'>
+                    {contacts}
+                </div>
             </div>
         );
     },
