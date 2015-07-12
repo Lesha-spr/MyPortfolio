@@ -10,13 +10,31 @@
 
 .projects__list {
   .list();
-  .clearfix();
-  margin: 0 -@project_item_padding;
+
+  .bp(@tablet, {
+    .clearfix();
+    margin: 0 -@project_item_padding;
+  });
+
+  .bp(@desktop, {
+    .clearfix();
+    margin: 0 -@project_item_padding;
+  });
 }
 
 .projects__item {
-  display: inline-block;
-  width: 25%;
+  margin-bottom: 10px;
+
+  .bp(@tablet, {
+    display: inline-block;
+    width: 50%;
+  });
+
+  .bp(@desktop, {
+    margin-bottom: 0;
+    display: inline-block;
+    width: 25%;
+  });
 }
 
 .projects__item__inner {
@@ -33,16 +51,20 @@
 }
 
 .projects__item__description {
-  display: block;
-  display: -webkit-box;
-  height: @line_height * @lines_to_show * @font_size;
-  margin-bottom: 10px;
-  font-size: @font_size;
-  line-height: @line_height;
-  -webkit-line-clamp: @lines_to_show;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: none;
+
+  .bp(@desktop, {
+    display: block;
+    display: -webkit-box;
+    height: @line_height * @lines_to_show * @font_size;
+    margin-bottom: 10px;
+    font-size: @font_size;
+    line-height: @line_height;
+    -webkit-line-clamp: @lines_to_show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  });
 }
 
 .projects__item__image-box {

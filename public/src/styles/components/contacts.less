@@ -6,7 +6,32 @@
 }
 
 .contacts__item {
+  display: inline-block;
   margin-left: @contactsMargin;
+  margin-bottom: @contactsMargin;
+  font-size: 48px;
   text-decoration: none;
   color: #000;
+
+  transition: transform, .25s, ease;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+
+  &_skype:before {
+    .icon('skype');
+  }
+
+  &_facebook:before {
+    .icon('facebook');
+  }
+
+  &_github:before {
+    .icon('github');
+  }
+
+  &_gmail:before {
+    .icon('gmail');
+  }
 }

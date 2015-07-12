@@ -1,8 +1,24 @@
-@img_width: 400px;
+@img_width: 200px;
+@img_width_desktop: 400px;
 
 .project-details__link {
-  float: left;
-  width: @img_width;
+  display: block;
+  height: 160px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: width, 0.25s, ease;
+
+  .bp(@tablet, {
+    float: left;
+    width: @img_width;
+    height: auto;
+  });
+
+  .bp(@desktop, {
+    float: left;
+    width: @img_width_desktop;
+    height: auto;
+  });
 }
 
 .project-details__image {
@@ -10,5 +26,13 @@
 }
 
 .project-details__description {
-  margin-left: @img_width + 20px;
+  transition: margin-left, 0.25s, ease;
+
+  .bp(@tablet, {
+    margin-left: @img_width + 20px;
+  });
+
+  .bp(@desktop, {
+    margin-left: @img_width_desktop + 20px;
+  });
 }

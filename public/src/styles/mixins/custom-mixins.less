@@ -73,3 +73,34 @@
   @colorHex: e(@randomColor);
   @color: ~"#@{colorHex}";
 }
+
+.icon(@icon: 'skype') {
+  font-family: Flaticon;
+  font-style: normal;
+
+  & when (@icon = 'skype') {
+    content: '\e000'
+  }
+
+  & when (@icon = 'facebook') {
+    content: '\e001'
+  }
+
+  & when (@icon = 'github') {
+    content: '\e002'
+  }
+
+  & when (@icon = 'gmail') {
+    content: '\e003'
+  }
+
+  & when (@icon = 'twitter') {
+    content: '\e004'
+  }
+}
+
+.bp(@min: @desktop, @rules) {
+  @media screen and (min-width: @min) {
+    @rules();
+  }
+}
