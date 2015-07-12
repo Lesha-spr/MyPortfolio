@@ -1,8 +1,8 @@
-var $ = require('jquery');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
+var $ = require('jquery');
 
 var BEFORE_FETCH_EVENT = 'before-fetch';
 var FETCH_EVENT = 'fetch';
@@ -97,6 +97,9 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         this.removeListener(FETCH_EVENT, callback);
     },
 
+    /**
+     * @param callback {Function}
+     */
     addLoadListener: function(callback) {
         this.on(LOAD_EVENT, callback);
     },

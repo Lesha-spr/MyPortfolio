@@ -7,7 +7,7 @@ var ProjectList = React.createClass({
     mixins: [stating],
     render: function() {
         var projects = [];
-        var className = this.toggleClass(this.props.isLoaded && this.props.isFetched, 'projects', 'projects_state_loading');
+        var className = this.toggleState(this.props.isLoaded && this.props.isFetched, 'projects', 'projects_state_loading');
 
         this.props.projects.forEach((project, index) => {
             projects.push(

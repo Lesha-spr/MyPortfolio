@@ -1,8 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 
-var $ = require('jquery');
-
 var ProjectsAction = {
 
     /**

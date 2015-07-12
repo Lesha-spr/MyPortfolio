@@ -6,5 +6,6 @@ module.exports = keyMirror({
     GET_NAV: null,
     GET_CONTACTS: null,
     LOAD_ITEM: null,
-    DROP_COUNT: null
+    DROP_COUNT: null,
+    FETCH_TECHNOLOGIES: null
 });

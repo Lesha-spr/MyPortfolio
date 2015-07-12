@@ -88,6 +88,46 @@ var createTechnologies = function createProjects(callback) {
                 technologies.push(technology._id);
                 callback(err, technology);
             });
+        },
+        function(callback) {
+            var technology = new Technology({
+                title: 'jQuery'
+            });
+
+            technology.save(function(err, technology, affected) {
+                technologies.push(technology._id);
+                callback(err, technology);
+            });
+        },
+        function(callback) {
+            var technology = new Technology({
+                title: 'React.js'
+            });
+
+            technology.save(function(err, technology, affected) {
+                technologies.push(technology._id);
+                callback(err, technology);
+            });
+        },
+        function(callback) {
+            var technology = new Technology({
+                title: 'git'
+            });
+
+            technology.save(function(err, technology, affected) {
+                technologies.push(technology._id);
+                callback(err, technology);
+            });
+        },
+        function(callback) {
+            var technology = new Technology({
+                title: 'Less'
+            });
+
+            technology.save(function(err, technology, affected) {
+                technologies.push(technology._id);
+                callback(err, technology);
+            });
         }
     ], callback);
 };

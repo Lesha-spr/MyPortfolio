@@ -1,9 +1,13 @@
 var React = require('react');
+var Technologies = require('./Technologies.react');
 
 var Home = React.createClass({
     render: function() {
         return (
-            <h2>Homepage</h2>
+            <div>
+                <h2>Homepage</h2>
+                <Technologies/>
+            </div>
         );
     }
 });

@@ -1,0 +1,25 @@
+@iterations: 30;
+
+.shuffle (@i) when (@i >= 0) {
+  .technologies__item_state_shuffle-@{i} {
+    font-size: @i*2px + 14px;
+    .randomColor();
+    color: @color;
+  }
+  .shuffle(@i - 1);
+}
+
+.shuffle (@iterations);
+
+.technologies {
+  margin-left: -10px;
+  text-align: center;
+}
+
+.technologies__item {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+}
