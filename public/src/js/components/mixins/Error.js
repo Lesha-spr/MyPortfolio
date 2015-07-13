@@ -13,7 +13,7 @@ var Error = {
 
     getJSX: function getJSX() {
         return (
-            <div>
+            <div className='error'>
                 <h2>{this.state.error.err.responseJSON.message.error}</h2>
                 <h3>{this.state.error.actionType}</h3>
             </div>
