@@ -1,34 +1,36 @@
 var React = require('react');
 var _ = require('underscore');
+var Error = require('./mixins/Error');
 var ProjectsStore = require('../stores/ProjectsStore');
 var ProjectsAction = require('../actions/ProjectsAction');
 
 var ProjectDetails = React.createClass({
+    mixins: [Error],
     getInitialState: function() {
         return {
+            isFetched: false,
             title: '',
             description: '',
             imgSrc: '',
             url: '',
             name: '',
-            technologies: [],
-            error: ''
+            technologies: []
         }
     },
     componentDidMount: function() {
         ProjectsStore.addFetchListener(this._onGetOne);
-        ProjectsStore.addErrorListener(this._onError);
         this._getOne();
     },
     componentWillUnmount: function() {
         ProjectsStore.removeFetchListener(this._onGetOne);
-        ProjectsStore.removeErrorListener(this._onError);
     },
     render: function() {
         if (this.state.error) {
-            return (
-                <h2>{this.state.error}</h2>
-            )
+            return this.getJSX();
+        }
+
+        if (!this.state.isFetched) {
+            return false;
         }
 
         var technologies = [];
@@ -61,9 +63,6 @@ var ProjectDetails = React.createClass({
     },
     _onGetOne: function _onGetOne() {
         this.setState(ProjectsStore.getOne(this.props.params.name));
-    },
-    _onError: function _onError(err) {
-        this.setState({error: err.responseJSON.message.error});
     }
 });
 

@@ -11,7 +11,7 @@ var ERROR_EVENT = 'error';
 
 var _projects = {
     projects: [],
-    isFetched: false,
+    isCollectionFetched: false,
     loadedCount: 0
 };
 
@@ -23,8 +23,12 @@ function fetchAll() {
         type: 'GET',
         success: function(projects) {
             if (projects) {
+                projects.forEach(function(project) {
+                    project.isFetched = true;
+                });
+
                 _projects.projects = projects;
-                _projects.isFetched = true;
+                _projects.isCollectionFetched = true;
             }
         }
     });
@@ -38,6 +42,7 @@ function fetchOne(name) {
         type: 'GET',
         success: function(project) {
             if (project) {
+                project.isFetched = true;
                 _projects.projects.push(project);
             }
         }
@@ -63,11 +68,11 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
 
     isLoaded: () => {
         // NOTE: <= in case of removed item
-        return _projects.projects.length <= _projects.loadedCount && _projects.isFetched;
+        return _projects.projects.length <= _projects.loadedCount && _projects.isCollectionFetched;
     },
 
     isFetched: () => {
-        return _projects.isFetched;
+        return _projects.isCollectionFetched;
     },
 
     emitBeforeFetch: function() {
@@ -78,8 +83,8 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         this.emit(FETCH_EVENT);
     },
 
-    emitError: function(err) {
-        this.emit(ERROR_EVENT, err);
+    emitError: function(err, actionType) {
+        this.emit(ERROR_EVENT, err, actionType);
     },
 
     emitLoad: function() {
@@ -156,7 +161,7 @@ AppDispatcher.register(function(action) {
                         ProjectsStore.emitFetch();
                     })
                     .fail(function(err) {
-                        ProjectsStore.emitError(err);
+                        ProjectsStore.emitError(err, AppConstants.GET_ONE_PROJECT);
                     });
             } else {
                 ProjectsStore.emitFetch();
