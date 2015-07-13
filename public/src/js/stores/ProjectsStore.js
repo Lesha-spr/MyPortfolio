@@ -7,6 +7,7 @@ var $ = require('jquery');
 var BEFORE_FETCH_EVENT = 'before-fetch';
 var FETCH_EVENT = 'fetch';
 var LOAD_EVENT = 'load';
+var ERROR_EVENT = 'error';
 
 var _projects = {
     projects: [],
@@ -64,9 +65,11 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         // NOTE: <= in case of removed item
         return _projects.projects.length <= _projects.loadedCount && _projects.isFetched;
     },
+
     isFetched: () => {
         return _projects.isFetched;
     },
+
     emitBeforeFetch: function() {
         this.emit(BEFORE_FETCH_EVENT);
     },
@@ -74,6 +77,11 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
     emitFetch: function() {
         this.emit(FETCH_EVENT);
     },
+
+    emitError: function(err) {
+        this.emit(ERROR_EVENT, err);
+    },
+
     emitLoad: function() {
         this.emit(LOAD_EVENT);
     },
@@ -97,6 +105,12 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         this.removeListener(FETCH_EVENT, callback);
     },
 
+    addErrorListener: function(callback) {
+        this.on(ERROR_EVENT, callback);
+    },
+    removeErrorListener: function(callback) {
+        this.on(ERROR_EVENT, callback);
+    },
     /**
      * @param callback {Function}
      */
@@ -120,9 +134,13 @@ AppDispatcher.register(function(action) {
             ProjectsStore.emitBeforeFetch();
 
             if (action.force || !_projects.isFetched) {
-                $.when(fetchAll()).done(function() {
-                    ProjectsStore.emitFetch();
-                });
+                $.when(fetchAll())
+                    .done(function() {
+                        ProjectsStore.emitFetch();
+                    })
+                    .fail(function(err) {
+                        ProjectsStore.emitError(err);
+                    });
             } else {
                 ProjectsStore.emitFetch();
             }
@@ -133,9 +151,13 @@ AppDispatcher.register(function(action) {
             var cachedProject = _.findWhere(_projects.projects, {name: action.name});
 
             if (!cachedProject) {
-                $.when(fetchOne(action.name)).done(function() {
-                    ProjectsStore.emitFetch();
-                });
+                $.when(fetchOne(action.name))
+                    .done(function() {
+                        ProjectsStore.emitFetch();
+                    })
+                    .fail(function(err) {
+                        ProjectsStore.emitError(err);
+                    });
             } else {
                 ProjectsStore.emitFetch();
             }
