@@ -1,6 +1,6 @@
 var React = require('react');
 var _ = require('underscore');
-var arraySplit = require('./../helpers/arraySplit');
+var arraySplit = require('../helpers/arraySplit');
 var Error = require('./mixins/Error');
 var ProjectsStore = require('../stores/ProjectsStore');
 var ProjectsAction = require('../actions/ProjectsAction');
