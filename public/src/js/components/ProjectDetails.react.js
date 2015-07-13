@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require('underscore');
+var arraySplit = require('./../helpers/arraySplit');
 var Error = require('./mixins/Error');
 var ProjectsStore = require('../stores/ProjectsStore');
 var ProjectsAction = require('../actions/ProjectsAction');
@@ -18,15 +19,15 @@ var ProjectDetails = React.createClass({
         }
     },
     componentDidMount: function() {
-        ProjectsStore.addFetchListener(this._onGetOne);
+        ProjectsStore.addAsyncListener(this._onGetOne);
         this._getOne();
     },
     componentWillUnmount: function() {
-        ProjectsStore.removeFetchListener(this._onGetOne);
+        ProjectsStore.removeAsyncListener(this._onGetOne);
     },
     render: function() {
         if (this.state.error) {
-            return this.getJSX();
+            return this.getErrorJSX();
         }
 
         if (!this.state.isFetched) {
@@ -35,10 +36,20 @@ var ProjectDetails = React.createClass({
 
         var technologies = [];
 
-        this.state.technologies.forEach(function(technology, index) {
+        arraySplit(this.state.technologies, 3).forEach(function(col, index) {
+            var colInnerJSX = [];
+
+            col.forEach(function(item, index) {
+                colInnerJSX.push(
+                    <li className='project-details__technologies__list__item' key={index}>{item.title}</li>
+                );
+            });
+
             technologies.push(
-                <li key={index}>{technology.title}</li>
-            )
+                <ul className='project-details__technologies__list' key={index}>
+                    {colInnerJSX}
+                </ul>
+            );
         });
 
         return (
@@ -49,9 +60,9 @@ var ProjectDetails = React.createClass({
                 </a>
                 <div className='project-details__description'>
                     <h3>Technologies used</h3>
-                    <ul>
+                    <div className='project-details__technologies'>
                         {technologies}
-                    </ul>
+                    </div>
                     <h3>Description</h3>
                     <p>{this.state.description}</p>
                 </div>

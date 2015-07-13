@@ -1,5 +1,9 @@
-@img_width: 200px;
-@img_width_desktop: 400px;
+@img_size: 300px;
+@img_size_desktop: 400px;
+
+.project-details {
+  .clearfix();
+}
 
 .project-details__link {
   display: block;
@@ -10,14 +14,15 @@
 
   .bp(@tablet, {
     float: left;
-    width: @img_width;
-    height: auto;
+    width: @img_size;
+    height: @img_size;
+    margin-bottom: 0;
   });
 
   .bp(@desktop, {
     float: left;
-    width: @img_width_desktop;
-    height: auto;
+    width: @img_size_desktop;
+    height: @img_size_desktop;
   });
 }
 
@@ -25,14 +30,28 @@
   .image();
 }
 
+.project-details__technologies {
+  overflow: hidden;
+}
+
+.project-details__technologies__list {
+  float: left;
+  width: 33.3%;
+  margin-top: 0;
+}
+
+.project-details__technologies__list__item {
+
+}
+
 .project-details__description {
   transition: margin-left, 0.25s, ease;
 
   .bp(@tablet, {
-    margin-left: @img_width + 20px;
+    margin-left: @img_size + 20px;
   });
 
   .bp(@desktop, {
-    margin-left: @img_width_desktop + 20px;
+    margin-left: @img_size_desktop + 20px;
   });
 }

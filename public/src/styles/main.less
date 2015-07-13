@@ -1,5 +1,13 @@
-html, body {
-  min-height: 100%;
+// Paul Irish recommendation
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body, .layout {
   height: 100%;
 }
 
@@ -25,11 +33,21 @@ a {
 
 .layout {
   .clearfix();
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 30px 20px 10px;
+}
+
+.layout__inner {
+  min-height: 100%;
+  margin-bottom: -@footerHeight;
+  &:after {
+    content: '';
+    display: block;
+    height: @footerHeight;
+  }
 }
 
 .main {
-
+  margin-bottom: 40px;
 }

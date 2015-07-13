@@ -4,9 +4,8 @@ var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
 var $ = require('jquery');
 
-var BEFORE_FETCH_EVENT = 'before-fetch';
-var FETCH_EVENT = 'fetch';
-var LOAD_EVENT = 'load';
+var BEFORE_ASYNC_EVENT = 'before-async';
+var ASYNC_EVENT = 'async';
 var ERROR_EVENT = 'error';
 
 var _projects = {
@@ -75,96 +74,101 @@ var ProjectsStore = _.extend({}, EventEmitter.prototype, {
         return _projects.isCollectionFetched;
     },
 
-    emitBeforeFetch: function() {
-        this.emit(BEFORE_FETCH_EVENT);
+    emitBeforeAsync: function() {
+        this.emit(BEFORE_ASYNC_EVENT);
     },
 
-    emitFetch: function() {
-        this.emit(FETCH_EVENT);
+    /**
+     * @param actionType {String}
+     */
+    emitAsync: function(actionType) {
+        this.emit(ASYNC_EVENT, actionType);
     },
 
+    /**
+     * @param err {Object}
+     * @param actionType {String}
+     */
     emitError: function(err, actionType) {
         this.emit(ERROR_EVENT, err, actionType);
     },
 
-    emitLoad: function() {
-        this.emit(LOAD_EVENT);
-    },
-    addBeforeFetchListener: function(callback) {
-        this.on(BEFORE_FETCH_EVENT, callback);
-    },
-    removeBeforeFetchListener: function(callback) {
-        this.removeListener(BEFORE_FETCH_EVENT, callback);
+    /**
+     * @param callback {Function}
+     */
+    addBeforeAsyncListener: function(callback) {
+        this.on(BEFORE_ASYNC_EVENT, callback);
     },
     /**
      * @param callback {Function}
      */
-    addFetchListener: function(callback) {
-        this.on(FETCH_EVENT, callback);
+    removeBeforeAsyncListener: function(callback) {
+        this.removeListener(BEFORE_ASYNC_EVENT, callback);
+    },
+    /**
+     * @param callback {Function}
+     */
+    addAsyncListener: function(callback) {
+        this.on(ASYNC_EVENT, callback);
     },
 
     /**
      * @param callback {Function}
      */
-    removeFetchListener: function(callback) {
-        this.removeListener(FETCH_EVENT, callback);
+    removeAsyncListener: function(callback) {
+        this.removeListener(ASYNC_EVENT, callback);
     },
 
+    /**
+     * @param callback {Function}
+     */
     addErrorListener: function(callback) {
         this.on(ERROR_EVENT, callback);
     },
-    removeErrorListener: function(callback) {
-        this.on(ERROR_EVENT, callback);
-    },
-    /**
-     * @param callback {Function}
-     */
-    addLoadListener: function(callback) {
-        this.on(LOAD_EVENT, callback);
-    },
 
     /**
      * @param callback {Function}
      */
-    removeLoadListener: function(callback) {
-        this.removeListener(LOAD_EVENT, callback);
+    removeErrorListener: function(callback) {
+        this.removeListener(ERROR_EVENT, callback);
     }
 });
 
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-    switch(action.actionType) {
+    switch (action.actionType) {
 
         case AppConstants.FETCH_PROJECTS:
-            ProjectsStore.emitBeforeFetch();
+            ProjectsStore.emitBeforeAsync();
 
-            if (action.force || !_projects.isFetched) {
+            if (action.force || !_projects.isCollectionFetched) {
                 $.when(fetchAll())
                     .done(function() {
-                        ProjectsStore.emitFetch();
+                        ProjectsStore.emitAsync(action.actionType);
                     })
                     .fail(function(err) {
-                        ProjectsStore.emitError(err);
+                        ProjectsStore.emitError(err, action.actionType);
                     });
             } else {
-                ProjectsStore.emitFetch();
+                ProjectsStore.emitAsync(action.actionType);
             }
 
             break;
 
         case AppConstants.GET_ONE_PROJECT:
             var cachedProject = _.findWhere(_projects.projects, {name: action.name});
+            ProjectsStore.emitBeforeAsync();
 
             if (!cachedProject) {
                 $.when(fetchOne(action.name))
                     .done(function() {
-                        ProjectsStore.emitFetch();
+                        ProjectsStore.emitAsync(action.actionType);
                     })
                     .fail(function(err) {
-                        ProjectsStore.emitError(err, AppConstants.GET_ONE_PROJECT);
+                        ProjectsStore.emitError(err, action.actionType);
                     });
             } else {
-                ProjectsStore.emitFetch();
+                ProjectsStore.emitAsync(action.actionType);
             }
 
             break;
@@ -173,7 +177,7 @@ AppDispatcher.register(function(action) {
             _projects.loadedCount++;
 
             if (_projects.projects.length === _projects.loadedCount) {
-                ProjectsStore.emitLoad();
+                ProjectsStore.emitAsync(action.actionType);
             }
 
             break;

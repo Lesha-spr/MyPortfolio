@@ -4,7 +4,7 @@ var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
 var $ = require('jquery');
 
-var FETCH_EVENT = 'fetch';
+var ASYNC_EVENT = 'async';
 
 var _technologies = {
     technologies: [],
@@ -31,22 +31,22 @@ var TechnologiesStore = _.extend({}, EventEmitter.prototype, {
         return _technologies.technologies;
     },
 
-    emitFetch: function() {
-        this.emit(FETCH_EVENT);
+    emitAsync: function(actionType) {
+        this.emit(ASYNC_EVENT, actionType);
     },
 
     /**
      * @param {function} callback
      */
-    addFetchListener: function(callback) {
-        this.on(FETCH_EVENT, callback);
+    addAsyncListener: function(callback) {
+        this.on(ASYNC_EVENT, callback);
     },
 
     /**
      * @param {function} callback
      */
-    removeFetchListener: function(callback) {
-        this.removeListener(FETCH_EVENT, callback);
+    removeAsyncListener: function(callback) {
+        this.removeListener(ASYNC_EVENT, callback);
     }
 });
 
@@ -57,10 +57,10 @@ AppDispatcher.register(function(action) {
         case AppConstants.FETCH_TECHNOLOGIES:
             if (action.force || !_technologies.isFetched) {
                 $.when(fetchAll()).done(function() {
-                    TechnologiesStore.emitFetch();
+                    TechnologiesStore.emitAsync(action.actionType);
                 });
             } else {
-                TechnologiesStore.emitFetch();
+                TechnologiesStore.emitAsync(action.actionType);
             }
 
             break;

@@ -1,4 +1,5 @@
 var React = require('react');
+var AppConstants = require('./../constants/AppConstants');
 var TechnologiesStore = require('../stores/TechnologiesStore');
 var TechnologiesAction = require('../actions/TechnologiesAction');
 var stating = require('./mixins/stating');
@@ -13,13 +14,16 @@ var Technologies = React.createClass({
             technologies: []
         }
     },
+
     componentDidMount: function() {
-        TechnologiesStore.addFetchListener(this._onFetch);
+        TechnologiesStore.addAsyncListener(this._onAsync);
         TechnologiesAction.fetch(false);
     },
+
     componentWillUnmount: function() {
-        TechnologiesStore.removeFetchListener(this._onFetch);
+        TechnologiesStore.removeAsyncListener(this._onAsync);
     },
+
     render: function() {
         var shuffle = this.shuffle(this.state.technologies.slice());
         var classNames = this.shuffle(Array.apply(null, {length: MAX_COUNT}).map(Number.call, Number));
@@ -41,6 +45,16 @@ var Technologies = React.createClass({
             </div>
         );
     },
+
+    _onAsync: function _onAsync(actionType) {
+        switch (actionType) {
+            case AppConstants.FETCH_TECHNOLOGIES:
+                this._onFetch();
+
+                break;
+        }
+    },
+
     _onFetch: function _onFetch() {
         this.setState({
             technologies: TechnologiesStore.getAll()
