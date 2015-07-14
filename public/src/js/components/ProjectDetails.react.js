@@ -18,13 +18,16 @@ var ProjectDetails = React.createClass({
             technologies: []
         }
     },
+
     componentDidMount: function() {
-        ProjectsStore.addAsyncListener(this._onGetOne);
+        ProjectsStore.addGetListener(this._onGetOne);
         this._getOne();
     },
+
     componentWillUnmount: function() {
-        ProjectsStore.removeAsyncListener(this._onGetOne);
+        ProjectsStore.removeGetListener(this._onGetOne);
     },
+
     render: function() {
         if (this.state.error) {
             return this.getErrorJSX();
@@ -69,9 +72,11 @@ var ProjectDetails = React.createClass({
             </div>
         );
     },
+
     _getOne: function _getOne() {
         ProjectsAction.getOne(this.props.params.name);
     },
+
     _onGetOne: function _onGetOne() {
         this.setState(ProjectsStore.getOne(this.props.params.name));
     }

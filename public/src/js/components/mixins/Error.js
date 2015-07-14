@@ -52,12 +52,12 @@ var Error = {
 
     componentDidMount: function() {
         ProjectsStore.addErrorListener(this._onError);
-        ProjectsStore.addAsyncListener(this._onSuccess);
+        ProjectsStore.addGetListener(this._onSuccess);
     },
 
     componentWillUnmount: function() {
         ProjectsStore.removeErrorListener(this._onError);
-        ProjectsStore.removeAsyncListener(this._onSuccess);
+        ProjectsStore.removeGetListener(this._onSuccess);
     }
 };
 

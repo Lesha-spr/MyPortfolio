@@ -21,15 +21,15 @@ var Projects = React.createClass({
     },
 
     componentDidMount: function() {
-        ProjectsStore.addBeforeAsyncListener(this._beforeAsync);
-        ProjectsStore.addAsyncListener(this._onAsync);
+        ProjectsStore.addBeforeGetListener(this._beforeGet);
+        ProjectsStore.addGetListener(this._onGet);
         this._fetch(false);
     },
 
     componentWillUnmount: function() {
         ProjectsAction.dropCount();
-        ProjectsStore.removeBeforeAsyncListener(this._beforeAsync);
-        ProjectsStore.removeAsyncListener(this._onAsync);
+        ProjectsStore.removeBeforeGetListener(this._beforeGet);
+        ProjectsStore.removeGetListener(this._onGet);
     },
 
     render: function() {
@@ -58,7 +58,7 @@ var Projects = React.createClass({
      * @param actionType {String}
      * @private
      */
-    _onAsync: function _onAsync(actionType) {
+    _onGet: function _onGet(actionType) {
         switch (actionType) {
             case AppConstants.FETCH_PROJECTS:
                 this._onFetch();
@@ -71,9 +71,10 @@ var Projects = React.createClass({
                 break;
 
             default:
-                console.warn('Handler for async event is not defined!');
+                console.warn('Handler for Get event is not defined!');
         }
     },
+
     _onFetch: function _onFetch() {
         this.setState({
             projects: ProjectsStore.getAll(),
@@ -82,12 +83,13 @@ var Projects = React.createClass({
         });
     },
 
-    _beforeAsync: function _beforeAsync() {
+    _beforeGet: function _beforeGet() {
         this.setState({
             isFetched: false,
             isLoaded: false
         });
     },
+
     _onLoad: function _onLoad() {
         this.setState({
             isLoaded: true
