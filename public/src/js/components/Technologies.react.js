@@ -31,6 +31,7 @@ var Technologies = React.createClass({
         shuffle.forEach(function(technology, index) {
             var className = 'technologies__item technologies__item_state_shuffle-' + classNames[index];
 
+            // TODO: move to separated component
             technologies.push(
                 <div key={index} className={className}>
                     {technology.title}

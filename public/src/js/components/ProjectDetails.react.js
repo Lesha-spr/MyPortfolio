@@ -29,6 +29,8 @@ var ProjectDetails = React.createClass({
     },
 
     render: function() {
+        var technologies = [];
+
         if (this.state.error) {
             return this.getErrorJSX();
         }
@@ -36,8 +38,6 @@ var ProjectDetails = React.createClass({
         if (!this.state.isFetched) {
             return false;
         }
-
-        var technologies = [];
 
         ArraySplit(this.state.technologies, 3).forEach(function(col, index) {
             var colInnerJSX = [];
