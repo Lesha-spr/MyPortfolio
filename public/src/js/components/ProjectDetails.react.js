@@ -1,6 +1,6 @@
 var React = require('react');
 var _ = require('underscore');
-var arraySplit = require('../helpers/ArraySplit');
+var ArraySplit = require('../helpers/ArraySplit');
 var Error = require('./mixins/Error');
 var ProjectsStore = require('../stores/ProjectsStore');
 var ProjectsAction = require('../actions/ProjectsAction');
@@ -39,7 +39,7 @@ var ProjectDetails = React.createClass({
 
         var technologies = [];
 
-        arraySplit(this.state.technologies, 3).forEach(function(col, index) {
+        ArraySplit(this.state.technologies, 3).forEach(function(col, index) {
             var colInnerJSX = [];
 
             col.forEach(function(item, index) {

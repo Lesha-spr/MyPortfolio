@@ -2,13 +2,12 @@ var React = require('react');
 var AppConstants = require('./../constants/AppConstants');
 var TechnologiesStore = require('../stores/TechnologiesStore');
 var TechnologiesAction = require('../actions/TechnologiesAction');
-var stating = require('./mixins/stating');
+var ArrayShuffle = require('./../helpers/ArrayShuffle');
 
 // NOTE: reference to styles number
 var MAX_COUNT = 30;
 
 var Technologies = React.createClass({
-    mixins: [stating],
     getInitialState: function() {
         return {
             technologies: []
@@ -25,8 +24,8 @@ var Technologies = React.createClass({
     },
 
     render: function() {
-        var shuffle = this.shuffle(this.state.technologies.slice());
-        var classNames = this.shuffle(Array.apply(null, {length: MAX_COUNT}).map(Number.call, Number));
+        var shuffle = ArrayShuffle(this.state.technologies.slice());
+        var classNames = ArrayShuffle(Array.apply(null, {length: MAX_COUNT}).map(Number.call, Number));
         var technologies = [];
 
         shuffle.forEach(function(technology, index) {

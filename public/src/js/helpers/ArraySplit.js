@@ -1,3 +1,8 @@
+/**
+ * @param a {Array}
+ * @param n {Number}
+ * @return {Array}
+ */
 var arraySplit = function arraySplit(a, n) {
     var len = a.length,out = [], i = 0;
     while (i < len) {
