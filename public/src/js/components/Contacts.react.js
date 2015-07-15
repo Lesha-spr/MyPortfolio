@@ -1,21 +1,15 @@
 var React = require('react');
+var Reflux = require('reflux');
+var ContactActions = require('./../actions/ContactActions');
+var ContactStore = require('./../stores/ContactStore');
 var ContactItem = require('./ContactItem.react');
-var ContactsStore = require('./../stores/ContactsStore');
-var ContactsAction = require('./../actions/ContactsAction');
 
 var Contacts = React.createClass({
-    getInitialState: () => {
-        return {
-            contacts: []
-        }
-    },
-    componentDidMount: function() {
-        ContactsStore.addGetListener(this._onGet);
-        this._get();
-    },
-    componentWillUnmount: function() {
-        ContactsStore.removeGetListener(this._onGet);
-    },
+    mixins: [Reflux.connect(ContactStore, 'contacts')],
+    // NOTE: as we starting with static data, we don't need to get anything
+    //componentDidMount: function() {
+    //    ContactActions.get();
+    //},
     render: function() {
         var contacts = [];
 
@@ -33,12 +27,6 @@ var Contacts = React.createClass({
                 </div>
             </div>
         );
-    },
-    _onGet: function() {
-        this.setState(ContactsStore.getAll());
-    },
-    _get: function() {
-        ContactsAction.getAll();
     }
 });
 

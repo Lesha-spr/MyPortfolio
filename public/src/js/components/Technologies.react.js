@@ -1,7 +1,7 @@
 var React = require('react');
-var AppConstants = require('./../constants/AppConstants');
-var TechnologiesStore = require('../stores/TechnologiesStore');
-var TechnologiesAction = require('../actions/TechnologiesAction');
+var Reflux = require('reflux');
+var TechnologyActions = require('./../actions/TechnologyActions');
+var TechnologyStore = require('./../stores/TechnologyStore');
 var ArrayShuffle = require('./../helpers/ArrayShuffle');
 var TechnologiesItem = require('./TechnologiesItem.react');
 
@@ -9,19 +9,9 @@ var TechnologiesItem = require('./TechnologiesItem.react');
 var MAX_COUNT = 30;
 
 var Technologies = React.createClass({
-    getInitialState: function() {
-        return {
-            technologies: []
-        }
-    },
-
+    mixins: [Reflux.connect(TechnologyStore, 'technologies')],
     componentDidMount: function() {
-        TechnologiesStore.addGetListener(this._onAsync);
-        TechnologiesAction.fetch(false);
-    },
-
-    componentWillUnmount: function() {
-        TechnologiesStore.removeGetListener(this._onAsync);
+        TechnologyActions.get();
     },
 
     render: function() {
@@ -42,21 +32,6 @@ var Technologies = React.createClass({
                 {technologies}
             </div>
         );
-    },
-
-    _onAsync: function _onAsync(actionType) {
-        switch (actionType) {
-            case AppConstants.FETCH_TECHNOLOGIES:
-                this._onFetch();
-
-                break;
-        }
-    },
-
-    _onFetch: function _onFetch() {
-        this.setState({
-            technologies: TechnologiesStore.getAll()
-        });
     }
 });
 
