@@ -3,6 +3,7 @@ var AppConstants = require('./../constants/AppConstants');
 var TechnologiesStore = require('../stores/TechnologiesStore');
 var TechnologiesAction = require('../actions/TechnologiesAction');
 var ArrayShuffle = require('./../helpers/ArrayShuffle');
+var TechnologiesItem = require('./TechnologiesItem.react');
 
 // NOTE: reference to styles number
 var MAX_COUNT = 30;
@@ -31,11 +32,8 @@ var Technologies = React.createClass({
         shuffle.forEach(function(technology, index) {
             var className = 'technologies__item technologies__item_state_shuffle-' + classNames[index];
 
-            // TODO: move to separated component
             technologies.push(
-                <div key={index} className={className}>
-                    {technology.title}
-                </div>
+                <TechnologiesItem key={index} className={className} {...technology}/>
             );
         });
 
