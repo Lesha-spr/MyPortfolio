@@ -62,7 +62,7 @@ var ProjectDetails = React.createClass({
                     <img className='project-details__image' src={this.state.imgSrc} alt={this.state.title}/>
                 </a>
                 <div className='project-details__description'>
-                    <h3>Technologies used</h3>
+                    <h3>Technologies used:</h3>
                     <div className='project-details__technologies'>
                         {technologies}
                     </div>
