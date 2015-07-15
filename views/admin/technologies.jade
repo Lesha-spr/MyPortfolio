@@ -1,0 +1,9 @@
+extends base
+
+block main
+    ul
+        each technology in technologies
+            - var url = '/admin/technologies/' + technology._id
+            li
+                a(href='#{url}') #{technology.title}
+    a(href='/admin/technologies/new') Add technology

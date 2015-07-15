@@ -1,0 +1,9 @@
+extends base
+
+block main
+   ul
+      each project in projects
+         - var url = '/admin/projects/' + project._id
+         li
+            a(href='#{url}') #{project.title}
+   a(href='/admin/projects/new') Add project

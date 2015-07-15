@@ -1,7 +1,3 @@
 extends base
 
 block main
-    each project in projects
-        - var url = '/admin/projects/' + project._id
-        a(href='#{url}') #{project.title}
-    a(href='/admin/projects/new') Add project

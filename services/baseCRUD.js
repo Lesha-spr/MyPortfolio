@@ -152,7 +152,6 @@ BaseService.prototype = _.extend({}, {
     },
 
     remove: function remove(key, value, callback) {
-        var _this = this;
         var criteria = {};
 
         criteria[key] = value;

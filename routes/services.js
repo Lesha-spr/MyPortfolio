@@ -46,7 +46,6 @@ router.get('/projects/remove/:id', function(req, res, next) {
     project.remove('_id', req.params.id, function(err, item) {
         if (err) return next(err);
 
-        // TODO: prepare response
         res.redirect('/admin');
     });
 });
@@ -56,6 +55,24 @@ router.get('/technologies', function(req, res, next) {
         if (err) return next(err);
 
         res.json(technologies);
+    });
+});
+
+router.post('/technologies/create', function(req, res, next) {
+    if (req.body) {
+        technology.create(req, function() {
+            res.redirect('/admin');
+        });
+    } else {
+        next();
+    }
+});
+
+router.get('/technologies/remove/:id', function(req, res, next) {
+    technology.remove('_id', req.params.id, function(err, item) {
+        if (err) return next(err);
+
+        res.redirect('/admin');
     });
 });
 

@@ -22,10 +22,14 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
+    res.render('admin/index');
+});
+
+router.get('/projects', function(req, res, next) {
     project.getAll(function(err, projects) {
         if (err) next(err);
 
-        res.render('admin/index', {
+        res.render('admin/projects', {
             projects: projects
         });
     }, req.xhr);
@@ -76,10 +80,24 @@ router.get('/technologies', function(req, res, next) {
     technology.getAll(function(err, technologies) {
         if (err) return next(err);
 
-        res.render('admin/index', {
+        res.render('admin/technologies', {
             technologies: technologies
         });
     });
+});
+
+router.get('/technologies/:id', function(req, res, next) {
+    if (req.params.id === 'new') {
+        res.render('admin/technology');
+    } else {
+        technology.getOne('_id', req.params.id, function(err, technology) {
+            if (err) return next(err);
+
+            res.render('admin/technology', {
+                technology: technology
+            });
+        });
+    }
 });
 
 module.exports = router;
