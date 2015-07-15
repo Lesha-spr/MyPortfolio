@@ -1,6 +1,7 @@
 extends base
 
 block main
+    h2 #{(project ? project.title : 'New Project')}
     if (project)
         - var removeUrl = '/services/projects/remove/' + project._id;
         a(href='#{removeUrl}') Remove
@@ -22,8 +23,9 @@ block main
             input(name='name', value=(project ? project.name : ''))
         if (technologies)
             each technology in technologies
-                label #{technology.title}
-                    input(type='checkbox', name='technologies', value='#{technology._id}', checked=(technology.isActive) ? 'checked' : undefined)
-                    br
+                .row
+                    label #{technology.title}
+                        input(type='checkbox', name='technologies', value='#{technology._id}', checked=(technology.isActive) ? 'checked' : undefined)
+                        br
         .row
             input(type='submit')

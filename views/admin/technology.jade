@@ -1,10 +1,10 @@
 extends base
 
 block main
-   form(action='/services/technologies/create', method='POST', enctype='multipart/form-data')
-      if (technology)
-         - var removeUrl = '/services/technologies/remove/' + technology._id;
-         a(href='#{removeUrl}') Remove
-         input(type='hidden', name='id', value='#{technology._id}')
-      input(type='text', name='title' value=(technology ? technology.title : ''))
-      input(type='submit')
+    form(action='/services/technologies/create', method='POST', enctype='multipart/form-data')
+        input(type='text', name='title' value=(technology ? technology.title : ''))
+        input(type='submit')
+        if (technology)
+            - var removeUrl = '/services/technologies/remove/' + technology._id;
+            a(href='#{removeUrl}') Remove
+            input(type='hidden', name='id', value='#{technology._id}')
