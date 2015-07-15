@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
-var $ = require('jquery');
+var reqwest = require('reqwest');
 
 var BEFORE_GET_EVENT = 'before-get';
 var GET_EVENT = 'get';
@@ -16,12 +16,14 @@ var _projects = {
 
 function fetchAll() {
 
-    return $.ajax({
+    return reqwest({
         url: '/services/projects',
         dataType: 'json',
         type: 'GET',
-        success: function(projects) {
-            if (projects) {
+        success: function(data) {
+            if (data) {
+                var projects = JSON.parse(data.response);
+
                 projects.forEach(function(project) {
                     project.isFetched = true;
                 });
@@ -35,12 +37,14 @@ function fetchAll() {
 
 function fetchOne(name) {
 
-    return $.ajax({
+    return reqwest({
         url: '/services/projects/' + name,
         dataType: 'json',
         type: 'GET',
-        success: function(project) {
-            if (project) {
+        success: function(data) {
+            if (data) {
+                var project = JSON.parse(data.response);
+
                 project.isFetched = true;
                 _projects.projects.push(project);
             }
@@ -142,11 +146,13 @@ AppDispatcher.register(function(action) {
             ProjectsStore.emitBeforeGet();
 
             if (action.force || !_projects.isCollectionFetched) {
-                $.when(fetchAll())
-                    .done(function() {
+                fetchAll()
+                    .then(function() {
                         ProjectsStore.emitGet(action.actionType);
                     })
                     .fail(function(err) {
+                        err = JSON.parse(err.response);
+
                         ProjectsStore.emitError(err, action.actionType);
                     });
             } else {
@@ -160,11 +166,13 @@ AppDispatcher.register(function(action) {
             ProjectsStore.emitBeforeGet();
 
             if (!cachedProject) {
-                $.when(fetchOne(action.name))
-                    .done(function() {
+                fetchOne(action.name)
+                    .then(function() {
                         ProjectsStore.emitGet(action.actionType);
                     })
                     .fail(function(err) {
+                        err = JSON.parse(err.response);
+
                         ProjectsStore.emitError(err, action.actionType);
                     });
             } else {

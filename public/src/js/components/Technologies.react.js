@@ -16,12 +16,12 @@ var Technologies = React.createClass({
     },
 
     componentDidMount: function() {
-        TechnologiesStore.addAsyncListener(this._onAsync);
+        TechnologiesStore.addGetListener(this._onAsync);
         TechnologiesAction.fetch(false);
     },
 
     componentWillUnmount: function() {
-        TechnologiesStore.removeAsyncListener(this._onAsync);
+        TechnologiesStore.removeGetListener(this._onAsync);
     },
 
     render: function() {

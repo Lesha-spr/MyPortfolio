@@ -2,9 +2,9 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var _ = require('underscore');
-var $ = require('jquery');
+var reqwest = require('reqwest');
 
-var ASYNC_EVENT = 'async';
+var GET_EVENT = 'get';
 
 var _technologies = {
     technologies: [],
@@ -13,13 +13,13 @@ var _technologies = {
 
 function fetchAll() {
 
-    return $.ajax({
+    return reqwest({
         url: '/services/technologies',
         dataType: 'json',
         type: 'GET',
-        success: function(technologies) {
-            if (technologies) {
-                _technologies.technologies = technologies;
+        success: function(data) {
+            if (data) {
+                _technologies.technologies = JSON.parse(data.response);
                 _technologies.isFetched = true;
             }
         }
@@ -31,22 +31,22 @@ var TechnologiesStore = _.extend({}, EventEmitter.prototype, {
         return _technologies.technologies;
     },
 
-    emitAsync: function(actionType) {
-        this.emit(ASYNC_EVENT, actionType);
+    emitGet: function(actionType) {
+        this.emit(GET_EVENT, actionType);
     },
 
     /**
      * @param {function} callback
      */
-    addAsyncListener: function(callback) {
-        this.on(ASYNC_EVENT, callback);
+    addGetListener: function(callback) {
+        this.on(GET_EVENT, callback);
     },
 
     /**
      * @param {function} callback
      */
-    removeAsyncListener: function(callback) {
-        this.removeListener(ASYNC_EVENT, callback);
+    removeGetListener: function(callback) {
+        this.removeListener(GET_EVENT, callback);
     }
 });
 
@@ -56,11 +56,11 @@ AppDispatcher.register(function(action) {
 
         case AppConstants.FETCH_TECHNOLOGIES:
             if (action.force || !_technologies.isFetched) {
-                $.when(fetchAll()).done(function() {
-                    TechnologiesStore.emitAsync(action.actionType);
+                fetchAll().then(function() {
+                    TechnologiesStore.emitGet(action.actionType);
                 });
             } else {
-                TechnologiesStore.emitAsync(action.actionType);
+                TechnologiesStore.emitGet(action.actionType);
             }
 
             break;

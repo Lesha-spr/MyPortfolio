@@ -10,7 +10,7 @@ function get(error) {
 
             return (
                 <h2>
-                    {AppMessages[error.err.responseJSON.message.error]}
+                    {AppMessages[error.err.message.error]}
                     <br/>
                     You can find all projects <Link to='projects'>here</Link>.
                 </h2>
@@ -22,7 +22,7 @@ function get(error) {
 
             return (
                 <h2>
-                    {AppMessages[error.err.responseJSON.message.error]}
+                    {AppMessages[error.err.message.error]}
                 </h2>
             );
 
