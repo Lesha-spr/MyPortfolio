@@ -1,8 +1,12 @@
 .nav {
   display: inline-block;
-  padding: 15px 80px;
+  padding: 15px;
   border: 1px solid #fff;
   border-radius: 4px;
+
+  .bp(@desktop, {
+    padding: 15px 80px;
+  });
 }
 
 .nav__item {

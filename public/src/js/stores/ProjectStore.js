@@ -38,6 +38,7 @@ var ProjectStore = Reflux.createStore({
                         project.isFetched = true;
                     });
 
+                    // TODO: wrong calculation
                     if (_projects.loadedCount >= _projects.projects.length) {
                         _projects.isLoaded = true;
                     }
