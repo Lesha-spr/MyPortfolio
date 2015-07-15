@@ -1,21 +1,15 @@
 var React = require('react');
+var Reflux = require('reflux');
 var NavItem = require('./NavItem.react');
 var NavStore = require('./../stores/NavStore');
-var NavAction = require('./../actions/NavAction');
+var NavActions = require('./../actions/NavActions');
 
 var Nav = React.createClass({
-    getInitialState: () => {
-        return {
-            nav: []
-        }
-    },
-    componentDidMount: function() {
-        NavStore.addGetListener(this._onGet);
-        this._get();
-    },
-    componentWillUnmount: function() {
-        NavStore.removeGetListener(this._onGet);
-    },
+    mixins: [Reflux.connect(NavStore, 'nav')],
+    // NOTE: as we starting with static data, we don't need to get anything
+    //componentDidMount: function() {
+    //    NavActions.get();
+    //},
     render: function() {
         var navItems = [];
 
@@ -32,12 +26,6 @@ var Nav = React.createClass({
                 {navItems}
             </nav>
         );
-    },
-    _onGet: function() {
-        this.setState(NavStore.getAll());
-    },
-    _get: function() {
-        NavAction.getNav();
     }
 });
 

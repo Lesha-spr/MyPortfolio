@@ -1,12 +1,13 @@
 var React = require('react');
+var Reflux = require('reflux');
 var _ = require('underscore');
 var ArraySplit = require('../helpers/ArraySplit');
 var Error = require('./mixins/Error');
-var ProjectsStore = require('../stores/ProjectsStore');
-var ProjectsAction = require('../actions/ProjectsAction');
+var ProjectStore = require('../stores/ProjectStore');
+var ProjectActions = require('../actions/ProjectActions');
 
 var ProjectDetails = React.createClass({
-    mixins: [Error],
+    mixins: [Reflux.connect(ProjectStore), Error],
     getInitialState: function() {
         return {
             isFetched: false,
@@ -20,12 +21,7 @@ var ProjectDetails = React.createClass({
     },
 
     componentDidMount: function() {
-        ProjectsStore.addGetListener(this._onGetOne);
-        this._getOne();
-    },
-
-    componentWillUnmount: function() {
-        ProjectsStore.removeGetListener(this._onGetOne);
+        ProjectActions.getOne(this.props.params.name);
     },
 
     render: function() {
@@ -71,14 +67,6 @@ var ProjectDetails = React.createClass({
                 </div>
             </div>
         );
-    },
-
-    _getOne: function _getOne() {
-        ProjectsAction.getOne(this.props.params.name);
-    },
-
-    _onGetOne: function _onGetOne() {
-        this.setState(ProjectsStore.getOne(this.props.params.name));
     }
 });
 

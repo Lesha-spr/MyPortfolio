@@ -1,16 +1,14 @@
 var React = require('react');
 var Link = require('react-router').Link;
-var AppConstants = require('./../../constants/AppConstants');
 var AppMessages = require('./../../constants/AppMessages');
-var ProjectsStore = require('./../../stores/ProjectsStore');
 
-function get(error) {
-    switch (error.actionType) {
-        case AppConstants.GET_ONE_PROJECT:
+function _getJSX(error) {
+    switch (error.message.error) {
+        case 'project.isEmpty':
 
             return (
                 <h2>
-                    {AppMessages[error.err.message.error]}
+                    {AppMessages[error.message.error]}
                     <br/>
                     You can find all projects <Link to='projects'>here</Link>.
                 </h2>
@@ -18,11 +16,11 @@ function get(error) {
 
             break;
 
-        case AppConstants.FETCH_PROJECTS:
+        case 'project.isEmptyCollection':
 
             return (
                 <h2>
-                    {AppMessages[error.err.message.error]}
+                    {AppMessages[error.message.error]}
                 </h2>
             );
 
@@ -31,33 +29,10 @@ function get(error) {
 }
 
 var Error = {
-    _onError: function _onError(err, actionType) {
-        this.setState({
-            error: {
-                err: err,
-                actionType: actionType
-            }
-        });
-    },
-
-    _onSuccess: function _onSuccess() {
-        this.setState({
-            error: false
-        });
-    },
-
     getErrorJSX: function getErrorJSX() {
-        return get(this.state.error);
-    },
-
-    componentDidMount: function() {
-        ProjectsStore.addErrorListener(this._onError);
-        ProjectsStore.addGetListener(this._onSuccess);
-    },
-
-    componentWillUnmount: function() {
-        ProjectsStore.removeErrorListener(this._onError);
-        ProjectsStore.removeGetListener(this._onSuccess);
+        return (
+            _getJSX(this.state.error)
+        );
     }
 };
 

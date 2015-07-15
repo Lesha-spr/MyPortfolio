@@ -1,6 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
-var ProjectsAction = require('./../actions/ProjectsAction');
+var ProjectActions = require('./../actions/ProjectActions');
 
 var ProjectItem = React.createClass({
     componentDidMount: function() {
@@ -34,7 +34,7 @@ var ProjectItem = React.createClass({
     },
 
     _onLoad: function() {
-        ProjectsAction.loadItem();
+        ProjectActions.loadImage();
     }
 });
 
