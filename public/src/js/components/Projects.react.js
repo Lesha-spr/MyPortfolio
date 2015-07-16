@@ -16,9 +16,6 @@ var Projects = React.createClass({
         ProjectActions.get();
     },
 
-    componentWillUnmount: function() {
-        ProjectActions.dropCount();
-    },
     render: function() {
         var refresh = <button className='ui-button' onClick={this._fetch.bind(this, true)}>Refresh</button>;
 

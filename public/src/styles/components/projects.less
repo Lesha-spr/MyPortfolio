@@ -78,7 +78,9 @@
   .image();
   transition: opacity, .25s, ease;
 
-  .projects_state_loading & {
-    opacity: 0;
+  &_state {
+    &_loading {
+      opacity: 0;
+    }
   }
 }

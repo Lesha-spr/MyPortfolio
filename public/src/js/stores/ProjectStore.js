@@ -5,17 +5,13 @@ var _ = require('underscore');
 
 var _projects = {
     projects: [],
-    isCollectionFetched: false,
-    isLoaded: false,
-    loadedCount: 0
+    isCollectionFetched: false
 };
 
 var ProjectStore = Reflux.createStore({
     listenables: [ProjectActions],
 
     getInitialState: function () {
-        _projects.loadedCount = _projects.projects.length;
-
         return _projects;
     },
 
@@ -24,9 +20,7 @@ var ProjectStore = Reflux.createStore({
 
         if (force || !_projects.isCollectionFetched) {
             _projects.isCollectionFetched = false;
-            _projects.isLoaded = false;
-
-            this.trigger(_projects);
+            _this.trigger(_projects);
 
             reqwest({
                 url: '/services/projects',
@@ -39,10 +33,6 @@ var ProjectStore = Reflux.createStore({
                     _projects.projects.forEach(function(project) {
                         project.isFetched = true;
                     });
-
-                    if (_projects.loadedCount >= _projects.projects.length) {
-                        _projects.isLoaded = true;
-                    }
 
                     _this.trigger(_projects);
                 },
@@ -87,20 +77,6 @@ var ProjectStore = Reflux.createStore({
         } else {
             this.trigger(cachedProject);
         }
-    },
-
-    onLoadImage: function() {
-        _projects.loadedCount++;
-
-        if (_projects.loadedCount === _projects.projects.length) {
-            _projects.isLoaded = true;
-
-            this.trigger(_projects);
-        }
-    },
-
-    onDropCount: function() {
-        _projects.loadedCount = 0;
     }
 });
 

@@ -13,7 +13,7 @@ var ProjectList = React.createClass({
         var projects = [];
         var className = classNames({
             'projects': true,
-            'projects_state_loading': (!this.props.isLoaded || !this.props.isCollectionFetched)
+            'projects_state_loading': !this.props.isCollectionFetched
         });
 
         this.props.projects.forEach((project, index) => {

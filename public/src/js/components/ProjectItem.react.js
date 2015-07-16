@@ -1,6 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
-var ProjectActions = require('./../actions/ProjectActions');
+var classNames = require('classnames');
 
 var ProjectItem = React.createClass({
     propTypes: {
@@ -8,6 +8,12 @@ var ProjectItem = React.createClass({
         name: React.PropTypes.string,
         description: React.PropTypes.string,
         imgSrc: React.PropTypes.string.isRequired
+    },
+
+    getInitialState: function() {
+        return {
+            isImgLoaded: false
+        }
     },
 
     componentDidMount: function() {
@@ -19,6 +25,10 @@ var ProjectItem = React.createClass({
     },
 
     render: function() {
+        var imgClassName = classNames({
+            'projects__item__image': true,
+            'projects__item__image_state_loading': !this.state.isImgLoaded
+        });
 
         return (
             <li className='projects__item'>
@@ -29,7 +39,7 @@ var ProjectItem = React.createClass({
                         <span className='projects__item__image-box'>
                             <img
                                 ref='img'
-                                className='projects__item__image'
+                                className={imgClassName}
                                 src={this.props.imgSrc}
                                 alt={this.props.title}
                             />
@@ -41,7 +51,9 @@ var ProjectItem = React.createClass({
     },
 
     _onLoad: function() {
-        ProjectActions.loadImage();
+        this.setState({
+            isImgLoaded: true
+        });
     }
 });
 
