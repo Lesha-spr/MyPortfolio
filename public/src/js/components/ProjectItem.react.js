@@ -3,6 +3,13 @@ var Link = require('react-router').Link;
 var ProjectActions = require('./../actions/ProjectActions');
 
 var ProjectItem = React.createClass({
+    propTypes: {
+        title: React.PropTypes.string,
+        name: React.PropTypes.string,
+        description: React.PropTypes.string,
+        imgSrc: React.PropTypes.string.isRequired
+    },
+
     componentDidMount: function() {
         React.findDOMNode(this.refs.img).addEventListener('load', this._onLoad);
     },

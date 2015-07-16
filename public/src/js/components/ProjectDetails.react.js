@@ -35,6 +35,7 @@ var ProjectDetails = React.createClass({
             return false;
         }
 
+        // TODO: Technologies should be a separate component
         ArraySplit(this.state.technologies, 3).forEach(function(col, index) {
             var colInnerJSX = [];
 
