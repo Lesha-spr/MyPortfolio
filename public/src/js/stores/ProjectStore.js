@@ -14,6 +14,8 @@ var ProjectStore = Reflux.createStore({
     listenables: [ProjectActions],
 
     getInitialState: function () {
+        _projects.loadedCount -= _projects.projects.length;
+
         return _projects;
     },
 
@@ -38,7 +40,6 @@ var ProjectStore = Reflux.createStore({
                         project.isFetched = true;
                     });
 
-                    // TODO: wrong calculation
                     if (_projects.loadedCount >= _projects.projects.length) {
                         _projects.isLoaded = true;
                     }
