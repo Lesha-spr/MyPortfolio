@@ -23,7 +23,7 @@ var Technologies = React.createClass({
             var className = 'technologies__item technologies__item_state_shuffle-' + classNames[index];
 
             technologies.push(
-                <TechnologiesItem key={index} className={className} {...technology}/>
+                <TechnologiesItem key={technology._id} className={className} {...technology}/>
             );
         });
 

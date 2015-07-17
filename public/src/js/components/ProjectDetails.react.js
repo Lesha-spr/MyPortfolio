@@ -4,6 +4,7 @@ var classNames = require('classnames');
 var _ = require('underscore');
 var ArraySplit = require('../helpers/ArraySplit');
 var Error = require('./mixins/Error');
+var TechnologyListItem = require('./TechnologyListItem.react');
 var ProjectStore = require('../stores/ProjectStore');
 var ProjectActions = require('../actions/ProjectActions');
 
@@ -47,13 +48,14 @@ var ProjectDetails = React.createClass({
             return this.getErrorJSX();
         }
 
-        // TODO: Technologies should be a separate component
         ArraySplit(this.state.technologies, 3).forEach(function(col, index) {
             var colInnerJSX = [];
 
-            col.forEach(function(item, index) {
+            col.forEach(function(item) {
                 colInnerJSX.push(
-                    <li className='project-details__technologies__list__item' key={index}>{item.title}</li>
+                    <TechnologyListItem key={item._id}>
+                        {item.title}
+                    </TechnologyListItem>
                 );
             });
 

@@ -16,10 +16,10 @@ var ProjectList = React.createClass({
             'projects_state_loading': !this.props.isCollectionFetched
         });
 
-        this.props.projects.forEach((project, index) => {
+        this.props.projects.forEach((project) => {
             projects.push(
                 <ProjectItem
-                    key={index}
+                    key={project._id}
                     {...project}
                 />
             );
