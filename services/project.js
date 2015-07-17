@@ -27,7 +27,7 @@ ProjectService.prototype.getAll = function getAll(callback, isAjax) {
     var _this = this;
     var asyncTasks = [];
 
-    this.Model.find({}, function(err, collection) {
+    this.Model.find({}, null, {sort: {created: 1}}, function(err, collection) {
         if (isAjax && !collection.length) {
             return callback(new ErrorService(424, {
                 error: _this.name + '.isEmptyCollection'
