@@ -1,5 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
+var classNames = require('classnames');
 var _ = require('underscore');
 var ArraySplit = require('../helpers/ArraySplit');
 var Error = require('./mixins/Error');
@@ -16,23 +17,34 @@ var ProjectDetails = React.createClass({
             imgSrc: '',
             url: '',
             name: '',
-            technologies: []
+            technologies: [],
+            isImageLoaded: false
         }
     },
 
     componentDidMount: function() {
         ProjectActions.getOne(this.props.params.name);
+        React.findDOMNode(this.refs.img).addEventListener('load', this._onLoad);
+    },
+
+    componentWillUnmount: function() {
+        React.findDOMNode(this.refs.img).removeEventListener('load', this._onLoad);
     },
 
     render: function() {
         var technologies = [];
+        var containerClassName = classNames({
+            'project-details': true,
+            'project-details_state_loading': !this.state.isFetched
+        });
+
+        var linkClassName = classNames({
+            'project-details__link': true,
+            'project-details__link_state_loading': !this.state.isImageLoaded
+        });
 
         if (this.state.error) {
             return this.getErrorJSX();
-        }
-
-        if (!this.state.isFetched) {
-            return false;
         }
 
         // TODO: Technologies should be a separate component
@@ -53,21 +65,29 @@ var ProjectDetails = React.createClass({
         });
 
         return (
-            <div className='project-details'>
-                <h2>{this.state.title}</h2>
-                <a className='project-details__link' href={this.state.url}>
-                    <img className='project-details__image' src={this.state.imgSrc} alt={this.state.title}/>
-                </a>
-                <div className='project-details__description'>
-                    <h3>Technologies used:</h3>
-                    <div className='project-details__technologies'>
-                        {technologies}
+            <div className={containerClassName}>
+                <div className='project-detail__inner'>
+                    <h2>{this.state.title}</h2>
+                    <a className={linkClassName} href={this.state.url}>
+                        <img ref='img' className='project-details__image' src={this.state.imgSrc} alt={this.state.title}/>
+                    </a>
+                    <div className='project-details__description'>
+                        <h3>Technologies used:</h3>
+                        <div className='project-details__technologies'>
+                            {technologies}
+                        </div>
+                        <h3>Description</h3>
+                        <p>{this.state.description}</p>
                     </div>
-                    <h3>Description</h3>
-                    <p>{this.state.description}</p>
                 </div>
             </div>
         );
+    },
+
+    _onLoad: function _onLoad() {
+        this.setState({
+            isImageLoaded: true
+        });
     }
 });
 

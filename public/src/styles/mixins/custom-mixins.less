@@ -49,7 +49,7 @@
   height: auto;
 }
 
-.spinner() {
+.spinner(@bgColor: rgba(0, 0, 0, 0.3)) {
   position: relative;
 
   &_state {
@@ -61,8 +61,18 @@
         right: 0;
         bottom: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.3);
+        background: @bgColor;
       }
+    }
+  }
+}
+
+.appearance() {
+  transition: opacity, .25s, ease;
+
+  &_state {
+    &_loading {
+      opacity: 0;
     }
   }
 }

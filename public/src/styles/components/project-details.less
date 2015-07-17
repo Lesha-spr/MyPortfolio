@@ -2,32 +2,41 @@
 @img_size_desktop: 400px;
 
 .project-details {
+  .appearance();
+}
+
+.project-detail__inner {
   .clearfix();
 }
 
 .project-details__link {
   display: block;
-  max-height: 160px;
+  height: 160px;
   margin-bottom: 20px;
   overflow: hidden;
   transition: width, 0.25s, ease;
+  .spinner();
 
   .bp(@tablet, {
     float: left;
     width: @img_size;
-    max-height: @img_size;
+    height: @img_size;
     margin-bottom: 0;
   });
 
   .bp(@desktop, {
     float: left;
     width: @img_size_desktop;
-    max-height: @img_size_desktop;
+    height: @img_size_desktop;
   });
 }
 
 .project-details__image {
   .image();
+
+  .project-details__link_state_loading {
+    opacity: 0;
+  }
 }
 
 .project-details__technologies {
