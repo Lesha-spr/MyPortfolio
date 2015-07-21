@@ -67,8 +67,6 @@ var Validation = {
                 className: className,
                 errorMessage: errorMessage || null
             });
-
-            console.log(this.inputs);
         },
 
         recursiveCloneChildren: function(children) {
@@ -121,7 +119,9 @@ var Validation = {
         },
 
         onBlur: function(event) {
-            this.props.validate(this);
+            if (!this.state.isUsed) {
+                this.props.validate(this);
+            }
 
             (this.props.onBlur || _.noop)(event);
         },
