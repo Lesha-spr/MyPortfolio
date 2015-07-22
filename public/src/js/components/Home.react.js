@@ -11,8 +11,9 @@ var Login = React.createClass({
     render: function() {
         return (
             <Validation.Form onSubmit={this.onSubmit}>
-                <Validation.Input className='ui-input' validations={['isRequired', 'isEmail']} name='username' type='text'/>
-                <Validation.Input className='ui-input' validations={['isRequired']} name='password' type='password'/>
+                <Validation.Input blocking='input' className='ui-input' validations={['isRequired', 'isEmail']} name='username' type='text'/>
+                <Validation.Input blocking='input' className='ui-input' validations={['isRequired']} name='password' type='password'/>
+                <Validation.Button blocking='button' value='submit'/>
             </Validation.Form>
         );
     }

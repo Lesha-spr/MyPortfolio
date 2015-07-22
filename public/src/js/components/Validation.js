@@ -27,7 +27,13 @@ var ERRORS = {
 var Validation = {
     Form: React.createClass({
         componentWillMount: function() {
-            this.inputs = [];
+            this.inputs = {
+                validation: [],
+                blocking: {
+                    inputs: {},
+                    buttons: []
+                }
+            };
         },
 
         render: function() {
@@ -69,23 +75,32 @@ var Validation = {
             });
         },
 
+        blocking: function(component) {
+
+        },
+
         recursiveCloneChildren: function(children) {
             return React.Children.map(children, function(child) {
                 if (!_.isObject(child)) {
                     return child;
                 }
 
-                var childProps;
+                var childProps = {};
                 var shouldValidate = _.isArray(child.props.validations) && child.props.validations.length;
 
                 if (shouldValidate) {
-                    childProps = {
-                        validate: this.validate
-                    };
+                    childProps.validate = this.validate;
+                    this.inputs.validation.push(child);
+                }
 
-                    this.inputs.push(child.props.name);
-                } else {
-                    childProps = {};
+                if (child.props.blocking === 'input') {
+                    childProps.blocking = this.blocking;
+                    this.inputs.blocking.inputs[name] = false;
+                }
+
+                if (child.props.blocking === 'button') {
+                    childProps.ref = child.props.blocking;
+                    this.inputs.blocking.buttons.push(childProps.ref);
                 }
 
                 childProps.children = this.recursiveCloneChildren(child.props.children);
@@ -110,12 +125,19 @@ var Validation = {
             this.setState({
                 value: event.currentTarget.value
             }, function() {
+                this.props.blocking(this);
+
                 if (this.state.isUsed) {
                     this.props.validate(this);
                 }
             });
 
             (this.props.onChange || _.noop)(event);
+        },
+
+        componentDidMount: function() {
+            // Get initial blocking
+            this.props.blocking(this);
         },
 
         onBlur: function(event) {
@@ -139,7 +161,31 @@ var Validation = {
                     <input {...this.props} className={this.state.className} value={this.state.value} onChange={this.setValue} onBlur={this.onBlur}/>
                     <span className='ui-input-hint'>{this.state.errorMessage}</span>
                 </div>
-            )
+            );
+        }
+    }),
+
+    Button: React.createClass({
+        propTypes: {
+            type: React.PropTypes.string
+        },
+
+        getDefaultProps: function() {
+            return {
+                type: 'submit'
+            }
+        },
+
+        getInitialState: function() {
+            return {
+                isDisabled: true
+            }
+        },
+
+        render: function() {
+            return (
+                <input disabled={this.state.isDisabled} {...this.props}/>
+            );
         }
     })
 };
