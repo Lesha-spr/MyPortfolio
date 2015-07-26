@@ -9,6 +9,7 @@ var ProjectList = React.createClass({
         isLoaded: React.PropTypes.bool,
         isFetched: React.PropTypes.bool
     },
+
     render: function() {
         var projects = [];
         var className = classNames({
