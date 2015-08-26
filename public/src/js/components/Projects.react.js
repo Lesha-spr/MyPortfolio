@@ -1,7 +1,5 @@
 var React = require('react');
 var Reflux = require('reflux');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
 var Error = require('./mixins/Error');
 
 var ProjectStore = require('../stores/ProjectStore');
@@ -33,7 +31,6 @@ var Projects = React.createClass({
                 <h2>Projects</h2>
                 {refresh}
                 <ProjectList {...this.state}/>
-                <RouteHandler/>
             </div>
         )
     },
