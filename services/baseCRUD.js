@@ -79,7 +79,7 @@ BaseService.prototype = _.extend({}, {
             });
         } else {
             asyncTasks.push(function(callback) {
-                service.getOne('_id', id, function(err, dependency) {
+                service.getOne('_id', item[field], function(err, dependency) {
                     if (dependency) {
                         item[field] = dependency;
                     }
