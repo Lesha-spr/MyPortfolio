@@ -29,7 +29,6 @@ var Projects = React.createClass({
         return (
             <div>
                 <h2>Projects</h2>
-                {refresh}
                 <ProjectList {...this.state}/>
             </div>
         )
